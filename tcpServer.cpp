@@ -1,5 +1,5 @@
 //
-// Created by Ariel Oscar 209341684 and Almog Mesilati on 29/12/2022.
+// Created by Almog Mesilaty 314973686 and Ariel Oscar 209341684 on 29/12/2022.
 //
 
 #include "tcpServer.h"
@@ -10,13 +10,44 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <string.h>
+#include <fstream>
+#include "TypedVector.hpp"
+#include "VectorDistances.hpp"
+#include "Knn.hpp"
 
-int main(int argc, char *argv[]){
+//Turnes csv line into a typed vector
+TypedVector stringToTypedVector(string s) {
+    //Endls carrige return character
+    replace(s.begin(), s.end(), '\r', ' ');
+    //Finds index of last comma
+    int index = s.find_last_of(',');
+    string type = s.substr(index+1);
+    string attr = s.substr(0, index);
+    //Replace all commas with space
+    replace(attr.begin(), attr.end(), ',', ' ');
+    vector<float> vec = VectorDistances::stringToVector(attr); // Throw an exception when a problem arise
+    TypedVector tVec(type, vec);
+    return tVec;
+}
+
+int myStoi(const char *s)
+{
+    long i;
+    i = 0;
+    while(*s >= '0' && *s <= '9')
+    {
+        i = i * 10 + (*s - '0');
+        s++;
+    }
+    return i;
+}
+
+int main(int argc, char* argv[]){
     vector<TypedVector> vectors;
     string line = "";
     //Takes the file name from args using macro to avoid magic numbers.
     string fName = argv[1];
-    ifstream inputFile;
+    std::ifstream inputFile;
     inputFile.open(fName);
     if (inputFile.is_open()) {
         //Converts the csv lines into vectors.
@@ -31,7 +62,7 @@ int main(int argc, char *argv[]){
     }
 
     const char * ip_address = "127.0.0.1" ;
-    const int port_no = stringstream(argv[2]);
+    const int server_port = myStoi(argv[2]);
 
     int sock = socket(AF_INET, SOCK_STREAM, 0);
     if (sock < 0 ) {
@@ -94,6 +125,7 @@ int main(int argc, char *argv[]){
                 }
             }
             else {
+                //finding the vector, first as a String and then to a vector<float>
                 std::string userVector = "";
                 i++;
                 while (buffer[i] != '#') {
@@ -101,6 +133,13 @@ int main(int argc, char *argv[]){
                     i++;
                 }
                 vector<float> userVec = VectorDistances::stringToVector(userVector);
+                if(userVector.empty()) {
+                    char bufferToClient[] = "Invalid vector";
+                    int sent_bytes = send(client_sock, bufferToClient, read_bytes, 0);
+                    if (sent_bytes < 0) {
+                        perror("error sending to client");
+                    }
+                }
 
                 //finding the type of the distance
                 std::string userTypeOfDis = "";
@@ -113,11 +152,22 @@ int main(int argc, char *argv[]){
                 //Calculates the distance to the current vector of user.
                 for (int i = 0; i < vectors.size(); i++) {
                     float dis = VectorDistances::distanceByName(userTypeOfDis, vectors[i].getVector(), userVec);
+                    if(dis == 0.0){
+                        char bufferToClient[] = "Invalid distance name";
+                        int sent_bytes = send(client_sock, bufferToClient, read_bytes, 0);
+                        if (sent_bytes < 0) {
+                            perror("error sending to client");
+                        }
+                    }
                     vectors[i].setDistance(dis);
                 }
 
                 //Calling the KNN to check the type.
-                char bufferToClient[] = Knn::findType(vectors, k);
+                string s = Knn::findType(vectors, k);
+                char bufferToClient[s.size()];
+                for(i=0; i < s.size(); i++){
+                    bufferToClient[i] = s[i];
+                }
                 int sent_bytes = send(client_sock, bufferToClient, read_bytes, 0);
                 if (sent_bytes < 0) {
                     perror("error sending to client");
@@ -128,11 +178,5 @@ int main(int argc, char *argv[]){
 
     close(sock);
     return 0;
-}
-
-
-int ServerRun(){
-
- return 0 ;
 
 }
