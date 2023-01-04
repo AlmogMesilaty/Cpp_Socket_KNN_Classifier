@@ -1,5 +1,7 @@
+//
+// Created by Ariel Oscar 209341684 and Almog Mesilaty 314973686
+//
 #include "Knn.hpp"
-
 /**
  * Function finds median of a vector
  * @param vec
@@ -10,7 +12,6 @@ TypedVector Knn::findMedian(vector<TypedVector> vec) {
     TypedVector median = vec[(size / 2)];
     return median;
 }
-
 /**
  * Function finds median os the medians
  * @param values
@@ -26,7 +27,6 @@ TypedVector Knn::findMedianOfMedians(vector <vector<TypedVector>> values) {
 
         return findMedian(medians);
     }
-
 /**
  * Function sorting according to the median of the medians by Dividing the list into n/5 lists of 5
  * elements each.
@@ -53,7 +53,6 @@ TypedVector Knn::selectionByMedianOfMedians(const vector<TypedVector> values, in
 
     //Calculating a new pivot for making splits
     TypedVector m = findMedianOfMedians(vec2D);
-
     //Partition the list into unique elements larger than 'm' (call this sublist L1) and those smaller
     // them 'm' (call this sublist L2)
     vector<TypedVector> L1, L2;

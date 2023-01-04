@@ -63,7 +63,7 @@ int isValid(string s) {
 */
 int IPIsValid(string s) {
 	// Regex expression
-	string pattern("^\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\.|$)){4}\b$");
+	string pattern("\\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\.|$)){4}\\b");
 	// Getting the regex object
 	regex rx(pattern);
 	return regex_match(s, rx);
@@ -75,7 +75,7 @@ int IPIsValid(string s) {
 */
 int PortIsValid(string s) {
 	// Regex expression
-	string pattern("^([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$");
+	string pattern("^([1-9][0-9]{0,4})$");
 	// Getting the regex object
 	regex rx(pattern);
 	return regex_match(s, rx);
@@ -88,10 +88,14 @@ int main(int argc, char* argv[]) {
 	// Checks the validation of PORT number and IP address
     string portTest = argv[PORT];
 	string ipTest = argv[IP];
-    if (!PortIsValid(portTest) || !IPIsValid(ipTest)) {
-        cout << "invalid port number or ip address" << endl;
+    if (!PortIsValid(portTest)) {
+        cout << "invalid port number" << endl;
         exit(1);
     }
+	if (!IPIsValid(ipTest)) {
+        cout << "invalid up address" << endl;
+        exit(1);
+	}
 	//Create socket with ipv4 in TCP protocol
 	int sock = socket(AF_INET, SOCK_STREAM, 0);
 	//If socket creation had a problem
