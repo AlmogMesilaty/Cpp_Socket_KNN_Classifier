@@ -12,10 +12,20 @@
 #include "TypedVector.hpp"
 #include "VectorDistances.hpp"
 #include "Knn.hpp"
-
 #define FILE 1
 #define PORT 2
-
+/*
+* Checks Port validation
+* input: port address that were given from command line.
+* return: false if input its invalid, otherwise true.
+*/
+int PortIsValid(string s) {
+	// Regex expression
+	string pattern("^([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$");
+	// Getting the regex object
+	regex rx(pattern);
+	return regex_match(s, rx);
+}
 //Turnes csv line into a typed vector
 TypedVector stringToTypedVector(string s) {
     //Endls carrige return character
@@ -30,14 +40,21 @@ TypedVector stringToTypedVector(string s) {
     TypedVector tVec(type, vec);
     return tVec;
 }
-
-
+/*
+* Server main function
+* receives pharsed input from flient, determine type using KNN, sends back to client.
+*/
 int main(int argc, char* argv[]){
+    // Checks the validation of PORT number
+    string portTest = argv[PORT];
+    if (!PortIsValid) {
+        cout << "invalid port number" << endl;
+        exit(1);
+    }
     vector<TypedVector> vectors;
     string line = "";
     //Takes the file name from args using macro to avoid magic numbers.
     string fName = argv[FILE];
-
     std::ifstream inputFile;
     inputFile.open(fName);
     if (inputFile.is_open()) {
@@ -51,7 +68,6 @@ int main(int argc, char* argv[]){
     else {
         cout << "File failed to open" << endl;
     }
-
     const char * ip_address = argv[FILE];
     const int server_port = std::stoi(argv[PORT]);
     
@@ -67,7 +83,6 @@ int main(int argc, char* argv[]){
     if (bind(sock, (struct sockaddr * ) &sin, sizeof(sin)) < 0 ) {
         perror("error binding socket");
     }
-
     while (true) //Server listens to clients
     {
         if (listen(sock, 5 ) < 0 ) {

@@ -13,10 +13,12 @@
 #define IP 1
 #define PORT 2
 #define DELIMITER '#'
-
 using namespace std;
-
-///Insertes delimiters between the the different patameters
+/*
+* Insertes delimiters between the the different patameters.
+* input: raw input from user as string.
+* return: the parameters in the order the servers expects with the delimiter between them.
+*/
 string insertDelimiter(string s) {
 	// Finds index of last space
 	int spaceIndex = s.find_last_of(' ');
@@ -41,32 +43,54 @@ string insertDelimiter(string s) {
 	string answer = k + DELIMITER + vector + DELIMITER + distance + DELIMITER;
 	return answer;
 }
-// Checks user input validation
+/*
+* Checks user input validation
+* input: raw input from user as string.
+* return: false if input its invalid, otherwise true.
+*/
 int isValid(string s) {
 	// Regex expression
-	string pattern("(((-){0,1}[0-9])*(\\.){0,1}([0-9])+( )+)+([A-Z]){3}( )+[0-9]+");
+	string pattern("^(((-){0,1}[0-9])*(\\.){0,1}([0-9])+( )+)+([A-Z]){3}( )+[0-9]+$");
 	// Getting the regex object
 	regex rx(pattern);
 	return regex_match(s, rx);
 }
-// Checks IP validation
+/*
+* Checks IP validation
+* input: ip address that were given from command line.
+* return: false if input its invalid, otherwise true.
+*/
 int IPIsValid(string s) {
 	// Regex expression
-	string pattern("(((-){0,1}[0-9])*(\\.){0,1}([0-9])* )+([A-Z]){3} [0-9]+");
+	string pattern("^\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\.|$)){4}\b$");
 	// Getting the regex object
 	regex rx(pattern);
 	return regex_match(s, rx);
 }
-// Checks PORT validation
+/*
+* Checks Port validation
+* input: port address that were given from command line.
+* return: false if input its invalid, otherwise true.
+*/
 int PortIsValid(string s) {
 	// Regex expression
-	string pattern("(((-){0,1}[0-9])*(\\.){0,1}([0-9])*( )+))+([A-Z]){3}( )+[0-9]+");
+	string pattern("^([1-9][0-9]{0,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$");
 	// Getting the regex object
 	regex rx(pattern);
 	return regex_match(s, rx);
 }
-// The main function
+/*
+* Client main function
+* receives input from user, sends it to the server, prints the answer.
+*/
 int main(int argc, char* argv[]) {
+	// Checks the validation of PORT number and IP address
+    string portTest = argv[PORT];
+	string ipTest = argv[IP];
+    if (!PortIsValid || !IPIsValid) {
+        cout << "invalid port number or ip address" << endl;
+        exit(1);
+    }
 	//Create socket with ipv4 in TCP protocol
 	int sock = socket(AF_INET, SOCK_STREAM, 0);
 	//If socket creation had a problem
@@ -101,13 +125,12 @@ int main(int argc, char* argv[]) {
 		}
 		//Input is not valid
 		else if (!(isValid(userInput))) {
-			cout << "Invalid input" << endl;
+			cout << "invalid input" << endl;
 			continue;
 		} 
 		//Valid input that is not -1
 		else {
 			userInput = insertDelimiter(userInput);
-			cout << "user input after delim: " << userInput << endl;
 		}
 		//Saves string length
 		int length = userInput.length();
@@ -137,9 +160,7 @@ int main(int argc, char* argv[]) {
 			cout << "error" << endl;
 		}
 		else if (buffer[0] == '-' && buffer[1] == '1') {
-			cout << "Socket is closing" << endl;
-			//close(sock);
-			cout << "Program is shutting down.." << endl;
+			close(sock);
 			break;
 		}
 		//Prints server answer
