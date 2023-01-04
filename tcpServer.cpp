@@ -9,6 +9,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <fstream>
+#include <regex>
 #include "TypedVector.hpp"
 #include "VectorDistances.hpp"
 #include "Knn.hpp"
