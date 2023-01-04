@@ -1,4 +1,6 @@
-/* Standard library*/
+//
+// Created by Ariel Oscar 209341684 and Almog Mesilaty 314973686
+//
 #include <iostream>
 #include <sys/socket.h>
 #include <stdio.h>
@@ -7,7 +9,7 @@
 #include <string.h>
 #include <algorithm>
 #include <regex>
-
+// Macros for the parameters places in argv
 #define IP 1
 #define PORT 2
 #define DELIMITER '#'
