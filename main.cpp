@@ -11,7 +11,7 @@
 #define K 1
 #define FILE_NAME 2
 #define METRICA 3
-
+/*
 using namespace std;
 
 //Turnes csv line into a typed vector 
@@ -34,6 +34,7 @@ TypedVector stringToTypedVector(string s) {
 * Constantly reciving user inputs, different vectors.
 * Returns the calculated type using knn.
 */
+/*
 int main(int argc, char* argv[]) {
     vector<TypedVector> vectors;
     string line = "";
@@ -78,3 +79,4 @@ int main(int argc, char* argv[]) {
         cout <<  t << endl;
     }
 }
+*/

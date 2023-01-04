@@ -1,17 +1,10 @@
-#include <winsock2.h>
 #include <iostream>
 #include <sys/socket.h>
 #include <stdio.h>
-#include <netint/in.h>
+#include <netinet/in.h>
 #include <arpa/inet.h>
-#include <unistd.h>
 #include <string.h>
-#include <fstream>
-#include <sstream>
-#include <vector>
-#include <cmath>
 #include <algorithm>
-#include "TypedVector.hpp"
 #include "VectorDistances.hpp"
 
 #define IP 1
@@ -39,7 +32,7 @@ int isValid(string s) {
 	return 1;
 }
 
-int main() {
+int main(int argc, char* argv[]) {
 	//Create socket with ipv4 in TCP protocol
 	int sock = socket(AF_INET, SOCK_STREAM, 0);
 	//If socket creation had a problem
@@ -53,7 +46,7 @@ int main() {
 	//Saves the recived ip address
 	sin.sin_addr.s_addr = inet_addr(argv[IP]);
 	//Saves the recived port
-	sin.sin_port = htons(argv[PORT]);
+	sin.sin_port = htons(std::stoi(argv[PORT]));
 	//Checks if the connection succeded
 	if (connect(sock, (struct sockaddr*)&sin, sizeof(sin)) < 0) {
 		perror("error connecting to server");
