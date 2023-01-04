@@ -13,6 +13,9 @@
 #include "VectorDistances.hpp"
 #include "Knn.hpp"
 
+#define FILE 1
+#define PORT 2
+
 //Turnes csv line into a typed vector
 TypedVector stringToTypedVector(string s) {
     //Endls carrige return character
@@ -33,8 +36,7 @@ int main(int argc, char* argv[]){
     vector<TypedVector> vectors;
     string line = "";
     //Takes the file name from args using macro to avoid magic numbers.
-    //string fName = argv[1];
-    string fName = "iris_classified.csv";
+    string fName = argv[FILE];
 
     std::ifstream inputFile;
     inputFile.open(fName);
@@ -50,10 +52,9 @@ int main(int argc, char* argv[]){
         cout << "File failed to open" << endl;
     }
 
-    //const char * ip_address = "127.0.0.1" ;
-    //const int server_port = std::stoi(argv[2]);
-    const int server_port = std::stoi("5555");
-
+    const char * ip_address = argv[FILE];
+    const int server_port = std::stoi(argv[PORT]);
+    
     int sock = socket(AF_INET, SOCK_STREAM, 0);
     if (sock < 0 ) {
         perror("error creating socket");
@@ -104,11 +105,16 @@ int main(int argc, char* argv[]){
                 k = k * (-1);
             }
             if (k == -1) {
+                char bufferToClient[] = "-1";
+                int sent_bytes = send(client_sock, bufferToClient, read_bytes, 0);
+                if (sent_bytes < 0) {
+                    perror("error sending to client");
+                }
                 close(client_sock);
                 break;
             }
             if (k <= 0 || k > vectors.size()) {
-                char bufferToClient[] = "Invalid k, program shutting down";
+                char bufferToClient[] = "invalid input";
                 int sent_bytes = send(client_sock, bufferToClient, read_bytes, 0);
                 if (sent_bytes < 0) {
                     perror("error sending to client");
@@ -138,26 +144,30 @@ int main(int argc, char* argv[]){
                     userTypeOfDis += buffer[i];
                     i++;
                 }
-
+                bool invalidDistance = false;
                 //Calculates the distance to the current vector of user.
                 for (int i = 0; i < vectors.size(); i++) {
                     float dis = VectorDistances::distanceByName(userTypeOfDis, vectors[i].getVector(), userVec);
-                    if(dis == 0.0){
+                    if(dis < 0.0){
                         char bufferToClient[] = "Invalid distance name";
                         int sent_bytes = send(client_sock, bufferToClient, read_bytes, 0);
                         if (sent_bytes < 0) {
                             perror("error sending to client");
                         }
+                        invalidDistance = true;
+                        break;
                     }
                     vectors[i].setDistance(dis);
                 }
-
+                // Continue to another input if the distance was invalid
+                if (invalidDistance) { continue; };
                 //Calling the KNN to check the type.
                 string s = Knn::findType(vectors, k);
-                char bufferToClient[s.size()];
+                char bufferToClient[s.size() + 1] = "";
                 for(i=0; i < s.size(); i++){
                     bufferToClient[i] = s[i];
                 }
+                bufferToClient[s.size() + 1] = '\0';
                 int sent_bytes = send(client_sock, bufferToClient, read_bytes, 0);
                 if (sent_bytes < 0) {
                     perror("error sending to client");

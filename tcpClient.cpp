@@ -1,3 +1,4 @@
+/* Standard library*/
 #include <iostream>
 #include <sys/socket.h>
 #include <stdio.h>
@@ -5,7 +6,7 @@
 #include <arpa/inet.h>
 #include <string.h>
 #include <algorithm>
-#include "VectorDistances.hpp"
+#include <regex>
 
 #define IP 1
 #define PORT 2
@@ -13,25 +14,56 @@
 
 using namespace std;
 
-//Insertes delimiters between the the different patameters
+///Insertes delimiters between the the different patameters
 string insertDelimiter(string s) {
-	//Finds index of last space
+	// Finds index of last space
 	int spaceIndex = s.find_last_of(' ');
-	//Finds index of distance
-	int index = s.find("[A-Z]{3}");
-	//
-	string vector = s.substr(0, index);
-	string distance = s.substr(index, spaceIndex);
-	string k = s.substr(spaceIndex);
-	string answer = k + DELIMITER + vector + DELIMITER + distance;
+	int i = spaceIndex;
+	// Skip access spaces
+	while (s[i] == ' ') {
+		i--;
+	}
+	//Saprates the sting into the different parameters
+	// Form start to the index of the last space
+	string k = s.substr(spaceIndex + 1);
+	// From 3 places before the last space, 3 chars
+	string distance = s.substr(i - 2, 3);
+	i -= 3;
+	// Skip access spaces
+	while (s[i] == ' ') {
+		i--;
+	}
+	// From start till 3 places before the last space
+	string vector = s.substr(0, i);
+    // Concatinate the parameters in the agreed order with delimiter between
+	string answer = k + DELIMITER + vector + DELIMITER + distance + DELIMITER;
 	return answer;
 }
-//Checks user input validation
+// Checks user input validation
 int isValid(string s) {
-	//int answer = (s = )
-	return 1;
+	// Regex expression
+	string pattern("(((-){0,1}[0-9])*(\\.){0,1}([0-9])+( )+)+([A-Z]){3}( )+[0-9]+");
+	// Getting the regex object
+	regex rx(pattern);
+	return regex_match(s, rx);
 }
-
+// Checks IP validation
+int IPIsValid(string s) {
+	// Regex expression
+	string pattern("(((-){0,1}[0-9])*(\\.){0,1}([0-9])* )+([A-Z]){3} [0-9]+");
+	// Getting the regex object
+	regex rx(pattern);
+	return regex_match(s, rx);
+}
+// Checks PORT validation
+int PortIsValid(string s) {
+	// Regex expression
+	string pattern("(((-){0,1}[0-9])*(\\.){0,1}([0-9])*( )+))+([A-Z]){3}( )+[0-9]+");
+	// Getting the regex object
+	regex rx(pattern);
+	return regex_match(s, rx);
+}
+// The main function
 int main(int argc, char* argv[]) {
 	//Create socket with ipv4 in TCP protocol
 	int sock = socket(AF_INET, SOCK_STREAM, 0);
@@ -50,9 +82,10 @@ int main(int argc, char* argv[]) {
 	//Checks if the connection succeded
 	if (connect(sock, (struct sockaddr*)&sin, sizeof(sin)) < 0) {
 		perror("error connecting to server");
+		exit(1);
 	}
 	//Recives input from user
-	string userInput = " ";
+	string userInput = "";
 	//Constatnly waiting for input from user.
 	while (true) {
 		//Indicates if user enters -1
@@ -61,16 +94,18 @@ int main(int argc, char* argv[]) {
 		getline(cin, userInput, '\n');
 		//Checks if user enters -1
 		if (userInput == "-1") {
+			userInput = "-1#";
 			endFlag = 1;
 		}
 		//Input is not valid
 		else if (!(isValid(userInput))) {
 			cout << "Invalid input" << endl;
-			break;
+			continue;
 		} 
 		//Valid input that is not -1
 		else {
-			insertDelimiter(userInput);
+			userInput = insertDelimiter(userInput);
+			cout << "user input after delim: " << userInput << endl;
 		}
 		//Saves string length
 		int length = userInput.length();
@@ -99,9 +134,15 @@ int main(int argc, char* argv[]) {
 		else if (read_bytes < 0) {
 			cout << "error" << endl;
 		}
+		else if (buffer[0] == '-' && buffer[1] == '1') {
+			cout << "Socket is closing" << endl;
+			//close(sock);
+			cout << "Program is shutting down.." << endl;
+			break;
+		}
 		//Prints server answer
 		else {
-			cout << buffer;
+			cout << buffer << endl;
 		}
 	}
 
