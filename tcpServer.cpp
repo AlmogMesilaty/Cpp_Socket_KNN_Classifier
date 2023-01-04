@@ -165,7 +165,7 @@ int main(int argc, char* argv[]){
                 for (int i = 0; i < vectors.size(); i++) {
                     float dis = VectorDistances::distanceByName(userTypeOfDis, vectors[i].getVector(), userVec);
                     if(dis < 0.0){
-                        char bufferToClient[] = "Invalid distance name";
+                        char bufferToClient[] = "invalid input";
                         int sent_bytes = send(client_sock, bufferToClient, read_bytes, 0);
                         if (sent_bytes < 0) {
                             perror("error sending to client");
