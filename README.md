@@ -35,11 +35,13 @@ make
 Vector class
 Algotithm library
 string class
-
- All from c++ standard library
+regex
+socket API
+All from c++ standard library
 
 ## Constants
 
+Using Macros to eccess IP, PORT and file that are given throught command line.
 Function MinkowskiDistance uses a constant P with current value of 2.
 Main uses define to access command line arguments without the use of magic numbers.
 
