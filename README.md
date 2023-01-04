@@ -26,7 +26,8 @@ Classes:
 
 ```
 make
-./ex.1_p2
+./server.out <file> <port>
+./client.out <ip> <port>
 ```
 
 ### Dependencies
