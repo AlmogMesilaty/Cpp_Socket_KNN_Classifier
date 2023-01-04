@@ -88,7 +88,7 @@ int main(int argc, char* argv[]) {
 	// Checks the validation of PORT number and IP address
     string portTest = argv[PORT];
 	string ipTest = argv[IP];
-    if (!PortIsValid(portTest) || !IPIsVali(ipTest)) {
+    if (!PortIsValid(portTest) || !IPIsValid(ipTest)) {
         cout << "invalid port number or ip address" << endl;
         exit(1);
     }
