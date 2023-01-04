@@ -48,7 +48,7 @@ TypedVector stringToTypedVector(string s) {
 int main(int argc, char* argv[]){
     // Checks the validation of PORT number
     string portTest = argv[PORT];
-    if (!PortIsValid) {
+    if (!PortIsValid(portTest)) {
         cout << "invalid port number" << endl;
         exit(1);
     }
