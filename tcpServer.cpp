@@ -1,7 +1,6 @@
 //
 // Created by Almog Mesilaty 314973686 and Ariel Oscar 209341684 on 29/12/2022.
 //
-
 #include <iostream>
 #include <sys/socket.h>
 #include <stdio.h>
@@ -41,6 +40,7 @@ TypedVector stringToTypedVector(string s) {
     TypedVector tVec(type, vec);
     return tVec;
 }
+
 /*
 * Server main function
 * receives pharsed input from flient, determine type using KNN, sends back to client.
@@ -84,6 +84,7 @@ int main(int argc, char* argv[]){
     if (bind(sock, (struct sockaddr * ) &sin, sizeof(sin)) < 0 ) {
         perror("error binding socket");
     }
+
     while (true) //Server listens to clients
     {
         if (listen(sock, 5 ) < 0 ) {
@@ -160,6 +161,7 @@ int main(int argc, char* argv[]){
                     userTypeOfDis += buffer[i];
                     i++;
                 }
+
                 bool invalidDistance = false;
                 //Calculates the distance to the current vector of user.
                 for (int i = 0; i < vectors.size(); i++) {
@@ -170,6 +172,7 @@ int main(int argc, char* argv[]){
                         if (sent_bytes < 0) {
                             perror("error sending to client");
                         }
+
                         invalidDistance = true;
                         break;
                     }
