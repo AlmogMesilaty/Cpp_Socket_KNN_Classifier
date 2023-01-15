@@ -225,8 +225,7 @@ float VectorDistances::distanceByName(string s, vector<float> vec1, vector<float
         if (s == "CHB") { return ChebyshevDistance(vec1, vec2); }
         if (s == "CAN") { return CanberraDistance(vec1, vec2); }
         if (s == "MIN") { return MinkowskiDistance(vec1, vec2); }
-        cout << "Invalid distance name" << endl;
     }
     cout << "No distance specified";
-    return 0.0;
+    return -1.0;
 }

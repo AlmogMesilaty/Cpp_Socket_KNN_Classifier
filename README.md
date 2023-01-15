@@ -2,18 +2,20 @@
 
 Advanced programming 2022-23 course assignments by Ariel Oscar and Almog Mesilaty.
 
-## Ex.1 part 2
+## Ex.3
 
 ### Description
 
-Implementing K-nearst-neighbors (KNN) algorithm in c++.
-  1. Throught the command line the user specifies:
+Implementing a serever and a client that use the K-nearst-neighbors (KNN) algorithm in c++.
+  1. Throught the command line the client sends to the server, through a socket:
       - Accuracy level (K)
       - Vector that have already been classified, using for comparison
       - Distance function
-  2. The program takes the classified file and parse it into vectors with type attribut.
-  3. User inputs a vector and the program prints the vector type according to the user specification (see 1).
-  4. The program awaits for a different vector from the user.
+  2. The server takes the classified file and the port number from the argv.
+  3. Through the socket the server gets the k, vector and type of distance from the client.
+  4. The serever calculate the classification  according to the client specification, and sends the answer back to the client.
+  5. If the client send '-1' to the server, the server closes the client socket, but keeps listening to the client. 
+  6. In a case of invalid input of the client, the server send an "invalid input" message.
  
 Classes:
   1. VectorDistances - abstract class contains different distance functions.
@@ -24,7 +26,8 @@ Classes:
 
 ```
 make
-./ex.1_p2
+./server.out <file> <port>
+./client.out <ip> <port>
 ```
 
 ### Dependencies
@@ -32,11 +35,13 @@ make
 Vector class
 Algotithm library
 string class
-
- All from c++ standard library
+regex
+socket API
+All from c++ standard library
 
 ## Constants
 
+Using Macros to eccess IP, PORT and file that are given throught command line.
 Function MinkowskiDistance uses a constant P with current value of 2.
 Main uses define to access command line arguments without the use of magic numbers.
 
