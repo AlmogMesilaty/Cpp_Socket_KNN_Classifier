@@ -149,7 +149,9 @@ std::vector<float> VectorDistances::stringToVector(string s) {
             }
             else {
                 cout << " Invalid input minus sign" << endl;
-                exit(1);
+                std::vector<float> error{}; //initializing an empty vector
+                return error;
+                //exit(1);
             }
         }
         if (s[i] == 'e' || s[i] == 'E') {
@@ -158,7 +160,9 @@ std::vector<float> VectorDistances::stringToVector(string s) {
             }
             else {
                 cout << " Invalid input e" << endl;
-                exit(1);
+                std::vector<float> error{}; //initializing an empty vector
+                return error;
+                //exit(1);
             }
         }
         if (s[i] == '.') { //if there is a dot
@@ -167,7 +171,9 @@ std::vector<float> VectorDistances::stringToVector(string s) {
             }
             else {
                 cout << " Invalid input dot" << endl;
-                exit(1);
+                std::vector<float> error{}; //initializing an empty vector
+                return error;
+                //exit(1);
             }
         }
         if (isdigit(s[i]) || s[i] == '.' || s[i] == '-' || s[i] == 'e' || s[i] == 'E') //inserting valid character to numS
@@ -175,7 +181,9 @@ std::vector<float> VectorDistances::stringToVector(string s) {
         else {
             cout << "Invalid input: " << numS << endl;
             cout << "s[i]: " << s[i] << endl;
-            exit(1);
+            std::vector<float> error{}; //initializing an empty vector
+            return error;
+            //exit(1);
         }
     }
     if (numS != "")
