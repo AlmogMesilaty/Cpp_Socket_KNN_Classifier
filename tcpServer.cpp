@@ -105,7 +105,7 @@ int main(int argc, char* argv[]){
                 perror("error receiving information");
             }
             // else:
-            //finding the required k from the server, or -1 to close the client socket.
+            //finding the required k from the client, or -1 to close the client socket.
             int k = 0;
             int i = 0;
             bool flagMinus = false;

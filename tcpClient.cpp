@@ -153,6 +153,7 @@ int main(int argc, char* argv[]) {
 		if (sent_bytes < 0) {
 			cout << "Sent bytes = 0" << endl;
 		}
+		//Creating buffer to recive the response from the server
 		char buffer[4096];
 		int expected_data_len = sizeof(buffer);
 		int read_bytes = recv(sock, buffer, expected_data_len, 0);
@@ -164,6 +165,7 @@ int main(int argc, char* argv[]) {
 		else if (read_bytes < 0) {
 			cout << "error" << endl;
 		}
+		//If client recives '-1' from server, close the connection
 		else if (buffer[0] == '-' && buffer[1] == '1') {
 			close(sock);
 			break;
