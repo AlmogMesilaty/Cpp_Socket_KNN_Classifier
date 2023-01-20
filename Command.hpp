@@ -6,8 +6,7 @@
 #include "DefaultIO.h"
 #ifndef AP_EX4_COMMAND_H
 #define AP_EX4_COMMAND_H
-
-
+//Command class description
 class Command {
 protected:
     std::string description;
