@@ -12,35 +12,10 @@
 #include "TypedVector.hpp"
 #include "VectorDistances.hpp"
 #include "Knn.hpp"
+#include "InputValidator.hpp"
+#include "StringMethods.hpp"
 #define FILE 1
 #define PORT 2
-/*
-* Checks Port validation
-* input: port address that were given from command line.
-* return: false if input its invalid, otherwise true.
-*/
-int PortIsValid(string s) {
-	// Regex expression
-	string pattern("^([1-9][0-9]{0,4})$");
-	// Getting the regex object
-	regex rx(pattern);
-	return regex_match(s, rx);
-}
-//Turnes csv line into a typed vector
-TypedVector stringToTypedVector(string s) {
-    //Endls carrige return character
-    replace(s.begin(), s.end(), '\r', ' ');
-    //Finds index of last comma
-    int index = s.find_last_of(',');
-    string type = s.substr(index+1);
-    string attr = s.substr(0, index);
-    //Replace all commas with space
-    replace(attr.begin(), attr.end(), ',', ' ');
-    vector<float> vec = VectorDistances::stringToVector(attr); // Throw an exception when a problem arise
-    TypedVector tVec(type, vec);
-    return tVec;
-}
-
 /*
 * Server main function
 * receives pharsed input from flient, determine type using KNN, sends back to client.

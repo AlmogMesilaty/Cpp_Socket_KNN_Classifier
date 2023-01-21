@@ -3,3 +3,10 @@
 ################################################################################
 
 /datasets
+/.vs/AP_EX4/v16/Browse.VC.db
+/.vs/AP_EX4/v16/Browse.VC.db-shm
+/.vs/AP_EX4/v16/Browse.VC.db-wal
+/.vs/AP_EX4/v16/Browse.VC.opendb
+*.json
+/.vs/slnx.sqlite
+/.vs/AP_EX4/v16/.suo

@@ -1,13 +1,17 @@
 //
-// Created by ariel_7za0dpc on 19/01/2023.
 //
-#include "DefaultIO.h"
+//
 #include "Command.h"
 //Constructor
-Command::Command() {
-    this->description = "";
-    this->dio = DefaultIO();
+Command::Command(std::string description, DefalutIO* dio) {
+    m_description = std::move(description);
+    m_dio = dio;
 }
-//Execute function, preforms the command
-void Command::execute() {}
-
+//Get dio
+DefaultIO* Command::getDio() {
+    return m_dio;
+}
+//Get description
+std::string& Command::getDescription() {
+    return m_description;
+}

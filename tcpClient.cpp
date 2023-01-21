@@ -10,76 +10,12 @@
 #include <string.h>
 #include <algorithm>
 #include <regex>
+#include "StringMethods.hpp"
+#include "InputValidator.hpp"
 // Macros for the parameters places in argv
 #define IP 1
 #define PORT 2
-#define DELIMITER '#'
 using namespace std;
-/*
-* Insertes delimiters between the the different patameters.
-* input: raw input from user as string.
-* return: the parameters in the order the servers expects with the delimiter between them.
-*/
-string insertDelimiter(string s) {
-	// Finds index of last space
-	int spaceIndex = s.find_last_of(' ');
-	int i = spaceIndex;
-	// Skip access spaces
-	while (s[i] == ' ') {
-		i--;
-	}
-	//Saprates the sting into the different parameters
-	// Form start to the index of the last space
-	string k = s.substr(spaceIndex + 1);
-	// From 3 places before the last space, 3 chars
-	string distance = s.substr(i - 2, 3);
-	i -= 3;
-	// Skip access spaces
-	while (s[i] == ' ') {
-		i--;
-	}
-	// From start till 3 places before the last space
-	string vector = s.substr(0, i);
-    // Concatinate the parameters in the agreed order with delimiter between
-	string answer = k + DELIMITER + vector + DELIMITER + distance + DELIMITER;
-	return answer;
-}
-/*
-* Checks user input validation
-* input: raw input from user as string.
-* return: false if input its invalid, otherwise true.
-*/
-int isValid(string s) {
-	// Regex expression
-	string pattern("^(((-){0,1}[0-9])*(\\.){0,1}([0-9])+( )+)+([A-Z]){3}( )+[0-9]+$");
-	// Getting the regex object
-	regex rx(pattern);
-	return regex_match(s, rx);
-}
-/*
-* Checks IP validation
-* input: ip address that were given from command line.
-* return: false if input its invalid, otherwise true.
-*/
-int IPIsValid(string s) {
-	// Regex expression
-	string pattern("\\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\.|$)){4}\\b");
-	// Getting the regex object
-	regex rx(pattern);
-	return regex_match(s, rx);
-}
-/*
-* Checks Port validation
-* input: port address that were given from command line.
-* return: false if input its invalid, otherwise true.
-*/
-int PortIsValid(string s) {
-	// Regex expression
-	string pattern("^([1-9][0-9]{0,4})$");
-	// Getting the regex object
-	regex rx(pattern);
-	return regex_match(s, rx);
-}
 /*
 * Client main function
 * receives input from user, sends it to the server, prints the answer.
