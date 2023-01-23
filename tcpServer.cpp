@@ -127,7 +127,7 @@ int main(int argc, char* argv[]) {
         handleClient(sock);
 
         //Close the thread
-        t.detach();
+        //t.detach();
     }
 
     //Close client socket

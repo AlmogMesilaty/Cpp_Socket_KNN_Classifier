@@ -1,8 +1,8 @@
 //
 //
 //
-#ifndef AP_EX4_DEFAULTIO_H
-#define AP_EX4_DEFAULTIO_H
+#ifndef AP_EX4_STANDARDIO_H
+#define AP_EX4_STANDARDIO_H
 
 #include <iostream>
 #include <string>
@@ -19,4 +19,4 @@ public:
     string IOType();
 };
 
-#endif //AP_EX4_DEFAULTIO_H
+#endif //AP_EX4_STANDARDIO_H
