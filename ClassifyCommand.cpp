@@ -1,8 +1,9 @@
 #include "ClassifyCommand.hpp"
 
 void ClassifyCommand::execute() {
+
     //Checks if files were uploaded
-    std::vector<std::shared_ptr<TypedVector>> train = c->getTrainVectors();
+    std::vector<TypedVector> train = c->getTrainVectors();
 
     if (train.empty()) {
         m_dio->write("\nplease upload train data, press ENTER to return to main menu\n");
@@ -10,64 +11,37 @@ void ClassifyCommand::execute() {
     }
 
     //Classify the data
-
-
-    //Gets the classified 
-    else {
-    //finding the vector, first as a String and then to a vector<float>
-    std::string userVector = "";
-    i++;
-    while (buffer[i] != '#') {
-        userVector += buffer[i];
-        i++;
-    }
-    vector<float> userVec = VectorDistances::stringToVector(userVector);
-    if (userVector.empty()) {
-        char bufferToClient[] = "Invalid vector";
-        int sent_bytes = send(client_sock, bufferToClient, read_bytes, 0);
-        if (sent_bytes < 0) {
-            perror("error sending to client");
-        }
+    std::vector<vector<float>> testVectors =c->getTestVectors;
+    
+    //If already classified, dont classify again
+    if (!testVectors.empty()) {
+        m_dio->write("classifying data complete");
+        return;
     }
 
-    /*
-    //Finding the type of the distance
-    std::string userTypeOfDis = "";
-    i++;
-    while (buffer[i] != '#') {
-        userTypeOfDis += buffer[i];
-        i++;
-    }*/
-
-    /*
     bool invalidDistance = false;
+    int k = c->getK();
+
     //Calculates the distance to the current vector of user.
-    for (int i = 0; i < vectors.size(); i++) {
-        float dis = VectorDistances::distanceByName(userTypeOfDis, vectors[i].getVector(), userVec);
-        if (dis < 0.0) {
-            char bufferToClient[] = "invalid input";
-            int sent_bytes = send(client_sock, bufferToClient, read_bytes, 0);
-            if (sent_bytes < 0) {
-                perror("error sending to client");
+    for (int i = 0; i < testVectors.size(); i++) {
+        for (int j = 0; j < vectors.size(); j++) {
+            float dis = VectorDistances::distanceByName(k, train[j].getVector(), testVectors[i]);
+            if (dis < 0.0) {
+                m_dio->write("Invalid input");
+                invalidDistance = true;
+                break;
             }
-
-            invalidDistance = true;
-            break;
+            train[j].setDistance(dis);
         }
-        vectors[i].setDistance(dis);
-    }*/
+        // Continue to another input if the distance was invalid
+        if (invalidDistance) { continue; };
 
-    // Continue to another input if the distance was invalid
-    if (invalidDistance) { continue; };
-    //Calling the KNN to check the type.
-    string s = Knn::findType(vectors, k);
-    char bufferToClient[s.size() + 1] = "";
-    for (i = 0; i < s.size(); i++) {
-        bufferToClient[i] = s[i];
+        //Calling the KNN to check the type.
+        string s = Knn::findType(train, k);
+
+        std::vector<string> classified = c->getClassified();
+
+        classified.push_back(i + " " + s + '\n');
     }
-    bufferToClient[s.size() + 1] = '\0';
-    int sent_bytes = send(client_sock, bufferToClient, read_bytes, 0);
-    if (sent_bytes < 0) {
-        perror("error sending to client");
-    }
+
 }
