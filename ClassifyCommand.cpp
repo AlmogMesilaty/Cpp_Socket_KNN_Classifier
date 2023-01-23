@@ -1,11 +1,11 @@
 #include "ClassifyCommand.hpp"
 
-ClassifyCommand::ClassifyCommand(DefaultIO *dio, CLI *cli): Command(dio, cli, "classify data") {}
+ClassifyCommand::ClassifyCommand(DefaultIO *dio, DataManager *d): Command(dio, d, "classify data") {}
 
 void ClassifyCommand::execute() {
 
     //Checks if files were uploaded
-    std::vector<TypedVector> train = cli->getTrainVectors();
+    std::vector<TypedVector> train = d->getTrainVectors();
 
     if (train.empty()) {
         dio->write("\nplease upload train data, press ENTER to return to main menu\n");
@@ -13,7 +13,7 @@ void ClassifyCommand::execute() {
     }
 
     //Classify the data
-    std::vector<vector<float>> testVectors =c->getTestVectors;
+    std::vector<vector<float>> testVectors = d->getTestVectors();
     
     //If already classified, dont classify again
     if (!testVectors.empty()) {
@@ -22,7 +22,7 @@ void ClassifyCommand::execute() {
     }
 
     bool invalidDistance = false;
-    string metric = c->getMetric();
+    string metric = d->getDistance();
 
     //Calculates the distance to the current vector of user.
     for (int i = 0; i < testVectors.size(); i++) {
@@ -39,9 +39,9 @@ void ClassifyCommand::execute() {
         if (invalidDistance) { continue; };
 
         //Calling the KNN to check the type.
-        string s = Knn::findType(train, c->getK());
+        string s = Knn::findType(train, d->getK());
 
-        std::vector<string> classified = c->getClassified();
+        std::vector<string> classified = d->getClassified();
 
         classified.push_back(i + " " + s + '\n');
     }

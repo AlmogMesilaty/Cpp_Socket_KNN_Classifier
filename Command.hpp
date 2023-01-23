@@ -5,20 +5,20 @@
 #define AP_EX4_COMMAND_H
 
 #include <iostream>
-#include "CLI.hpp"
 #include "DefaultIO.hpp"
+#include "DataManager.hpp"
 
 
 //Command class description
 class Command {
 protected:
     DefaultIO* dio;
-    CLI* cli;
+    DataManager* d;
     std::string description;
 
 public:
     //Default Constructor
-    Command(DefaultIO* dio, CLI* cli, std::string description);
+    Command(DefaultIO* dio, DataManager* d, std::string description);
     //Execute the commansd
     virtual void execute();
     //Returns the IO

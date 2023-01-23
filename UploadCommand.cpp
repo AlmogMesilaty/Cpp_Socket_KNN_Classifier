@@ -1,9 +1,9 @@
 #include "UploadCommand.hpp"
 
-UploadCommand::UploadCommand(DefaultIO* dio, CLI* cli) : Command(dio, cli, "upload an unclassified csv data file") {}
+UploadCommand::UploadCommand(DefaultIO* dio, DataManager* d) : Command(dio, d, "upload an unclassified csv data file") {}
 
 void UploadCommand::execute() {
-
+/*
 	//Creates the test and classified vectors of the specific client
 	std::vector<TypedVector> trainVectors;
 	std::vector<TypedVector> testVectors;
@@ -39,4 +39,6 @@ void UploadCommand::execute() {
 	//Set an empty vector for the classified data
 	std::vector<std::shared_ptr<TypedVector>> classifiedVectors;
 	cli->setClassifiedData(classifiedVectors);
+	*/
+	dio->write("HI!");
 }

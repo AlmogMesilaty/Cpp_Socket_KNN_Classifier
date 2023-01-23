@@ -7,12 +7,13 @@
 #include "Reader.hpp"
 #include "Writer.hpp"
 #include "Command.hpp"
-
+#include "DefaultIO.hpp"
+#include "DataManager.hpp"
 
 class UploadCommand : public Command {
 public:
 	//Constructor
-	UploadCommand(DefaultIO* dio, CLI* cli);
+	UploadCommand(DefaultIO* dio, DataManager* d);
 	//Execute
 	void execute();
 };

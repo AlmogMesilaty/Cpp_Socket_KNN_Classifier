@@ -9,8 +9,10 @@
 
 using namespace std;
 
-class SocketIO: public DefaultIO {
-    static const string type = "socket";
+class SocketIO//: public DefaultIO {
+{
+private:
+    //static const string type = "socket";
 
 public:
     std::string read();

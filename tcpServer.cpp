@@ -7,7 +7,7 @@ using namespace std;
 /*
 * Handle client
 */
-void TcpServer::handleClient() {
+void handleClient(int sock) {
 
     //Preforms connection to client
     struct sockaddr_in client_sin;
@@ -18,10 +18,10 @@ void TcpServer::handleClient() {
     }
 
     //Creates default io
-    DefaultIO::DefaultIO dio = new StandardIO();
+    DefaultIO* dio = new StandardIO();
 
     //Creates new CLI
-    CLI::CLI cli = new CLI(dio);
+    CLI* cli = new CLI(*dio);
 
     //Prints the start message
     cli->start();
@@ -77,8 +77,8 @@ void TcpServer::handleClient() {
         }
 
         //Executes the desired command
-        cli->m_commands.at(choise - 1)->execute();
-        (cli->getDio)->printMenu();            
+        cli->commands[choice - 1].execute();
+        cli->printMenu();            
     }
 }
 
@@ -123,10 +123,11 @@ int main(int argc, char* argv[]) {
         }
 
         //Creates thread to handle new client
-        std::thread t(TcpServer::handleClient);
+        //std::thread t(handleClient(sock));
+        handleClient(sock);
 
         //Close the thread
-        t.detach();
+        //t.detach();
     }
 
     //Close client socket

@@ -4,17 +4,17 @@
 #ifndef AP_EX4_SETTINGSCOMMAND_H
 #define AP_EX4_SETTINGSCOMMAND_H
 
-#include "Command.hpp"
 #include "DefaultIO.hpp"
-#include "CLI.hpp"
+#include "DataManager.hpp"
 #include "InputValidator.hpp"
+#include "Command.hpp"
 
 using namespace std;
 
 class SettingsCommand : public Command {
 public:
     //Constructor
-    SettingsCommand(DefaultIO* dio, CLI* cli) : Command(dio, cli, "algorithm settings") { }
+    SettingsCommand(DefaultIO* dio, DataManager* d);
 	//Execute
 	void execute();
 };

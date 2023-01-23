@@ -1,66 +1,20 @@
 #include "CLI.hpp"
 
 //Constructor
-CLI::CLI(DefaultIO* dio) {
+CLI::CLI(DefaultIO* dio, DataManager* data) {
 	this->dio = dio;
     //Initialize commands array
-    Command com1 = new UploadCommand(dio, this);
-    commands.push_back(com1); //Command when typing "1"
-    this->commands[0] = new UploadCommand(dio, this);
-    this->commands[1] = SettingsCommand(&(this->dio), this); //Command when typing "2"
-    this->commands[2] = ClassifyCommand(&(this->dio), this); //Command when typing "3"
-    this->commands[3] = DisplayCommand(&(this->dio), this); //Command when typing "4"
-    this->commands[4] = DownloadCommand(&(this->dio), this); //Command when typing "5"
-    this->commands[5] = ExitCommand(&(this->dio), this); //Command when typing "8"
+    this->commands[0] = new UploadCommand(dio, data); //Command when typing "1"
+    this->commands[1] = new SettingsCommand(dio, data); //Command when typing "2"
+    this->commands[2] = new ClassifyCommand(dio, data); //Command when typing "3"
+    this->commands[3] = new DisplayCommand(dio, data); //Command when typing "4"
+    this->commands[4] = new DownloadCommand(dio, data); //Command when typing "5"
+    this->commands[5] = new ExitCommand(dio, data); //Command when typing "8"
 }
 
 //getters
 DefaultIO* CLI::getDio(){
-    return dio;
-}
-
-std::vector<TypedVector> CLI::getTrainVectors() {
-    return trainVectors;
-}
-
-std::vector<vector<float>> CLI::getTestVectors() {
-    return testVectors;
-}
-
-int CLI::getK(){
-    return k;
-}
-
-int CLI::getMaximumK(){
-   return maxK;
-}
-
-string CLI::getDistance(){
-    return distance;
-}
-
-std::vector<string> CLI::getClassified(){
-    return classified;
-}
-
-//setters
-void CLI::setTrainFile(std::vector<TypedVector> trainFile){
-    this->trainVectors = trainFile;
-}
-void CLI::setTestFile(std::vector<vector<float>> testFile){
-    this->testVectors = testFile;
-}
-void CLI::setK(int k){
-    this->k = k;
-}
-void CLI::setMaximumK(int maxK){
-    this->maxK = maxK;
-}
-void CLI::setDistance(string distance){
-    this->distance = distance;
-}
-void CLI::setClassified(std::vector<string> classified){
-    this->classified = classified;
+    return this->dio;
 }
 
 //Returns string representation of the menu
@@ -68,9 +22,9 @@ std::string CLI::menuToString() {
     std::string menuStr = "";
     int max = commands.size();
     for(int i = 0; i < max-1; i++) {
-        menuStr += std::to_string(i+1) + " " + commands[i].getDescription() + "\n";
+        menuStr += std::to_string(i+1) + " " + commands[i]->getDescription() + "\n";
     }
-    menuStr += "8. "+ commands[max-1].getDescription();
+    menuStr += "8. "+ commands[max-1]->getDescription();
     return menuStr;
 }
 
@@ -90,7 +44,7 @@ void CLI::serveUser() {
             if (choice == 8) {
                 break;
             }
-            commands[choice - 1].execute();
+            commands[choice - 1]->execute();
             printMenu();
         }
         else {
@@ -105,3 +59,10 @@ void CLI::start() {
     serveUser();
 }
 
+int main() {
+    DefaultIO* dio = new StandardIO();
+    DataManager* d = new DataManager();
+    CLI* cli = new CLI(dio, d);
+    cli->start();
+    return 0;
+}

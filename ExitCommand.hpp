@@ -7,12 +7,12 @@
 
 #include "Command.hpp"
 #include "DefaultIO.hpp"
-#include "CLI.hpp"
+#include "DataManager.hpp"
 
 class ExitCommand: public Command {
 public:
     //Constructor
-    ExitCommand(DefaultIO* dio, CLI* cli) : Command(dio, cli, "exit") { }
+    ExitCommand(DefaultIO* dio, DataManager* d) : Command(dio, d, "exit") { }
     //execute
     void execute();
 };

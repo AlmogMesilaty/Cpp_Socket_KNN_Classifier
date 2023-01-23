@@ -7,12 +7,12 @@
 
 #include "Command.hpp"
 #include "DefaultIO.hpp"
-#include "CLI.hpp"
+#include "DataManager.hpp"
 
 class DownloadCommand: public Command {
 public:
     //Constructor
-    DownloadCommand(DefaultIO* dio, CLI* cli) : Command(dio, cli, "download results") { }
+    DownloadCommand(DefaultIO* dio, DataManager* d) : Command(dio, d, "download results") { }
     void execute();
     };
 

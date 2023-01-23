@@ -1,8 +1,8 @@
 //
 //
 //
-#ifndef AP_EX4_DEFAULTIO_H
-#define AP_EX4_DEFAULTIO_H
+#ifndef AP_EX4_STANDARDIO_H
+#define AP_EX4_STANDARDIO_H
 
 #include <iostream>
 #include <string>
@@ -11,11 +11,12 @@
 using namespace std;
 
 class StandardIO: public DefaultIO {
-private: const std::string type = "standard";
+private:
+    const std::string type = "standard";
 public:
     string read();
     void write(std::string str);
     string IOType();
 };
 
-#endif //AP_EX4_DEFAULTIO_H
+#endif //AP_EX4_STANDARDIO_H
