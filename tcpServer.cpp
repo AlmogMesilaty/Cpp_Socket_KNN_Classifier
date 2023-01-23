@@ -119,6 +119,8 @@ int main(int argc, char* argv[]){
         //Creates thread to handle new client
         std::thread t(handleClient);
 
+        //Close the thread
+        t.detach();
     }
 
     //Close client socket
