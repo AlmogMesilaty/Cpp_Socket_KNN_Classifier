@@ -15,9 +15,12 @@ void UploadCommand::execute() {
 	std::string trainPath = dio->read();
 
 	//Read from local file into vector of TypedVectors
-	Reader reader = Reader(trainPath, cli->getMetric());
-	reader.read(trainVectors);
-
+	while() {
+		Reader reader = Reader(trainPath, cli->getMetric());
+		reader.read(trainVectors);
+	
+	}
+	
 	dio->write("Upload complete.\nPlease upload your local test CSV file.");
 
 	//Read the test file path
