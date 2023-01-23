@@ -17,11 +17,14 @@ void TcpServer::handleClient() {
         perror("error accepting client");
     }
 
+    //Creates default io
+    DefaultIO::DefaultIO dio = new StandardIO();
+
     //Creates new CLI
-    new CLI c;
+    CLI::CLI cli = new CLI(dio);
 
     //Prints the start message
-    c->start();
+    cli->start();
 
     //Server serves specific client
     char buffer[4096];
@@ -40,6 +43,7 @@ void TcpServer::handleClient() {
         //Reciving menu choice from user, or 8 to close the client socket.
         int choice = 0;
         int i = 0;
+
         bool flagMinus = false;
         if (buffer[i] == '-') {
             flagMinus = true;
@@ -62,6 +66,7 @@ void TcpServer::handleClient() {
             close(client_sock);
             break;
         }
+
         //Checks for invalid input
         if (choice <= 0 || choice >= 6 && choice <= 7 || choice > 8) {
             char bufferToClient[] = "invalid input";
@@ -72,9 +77,8 @@ void TcpServer::handleClient() {
         }
 
         //Executes the desired command
-        c->m_commands.at(choise - 1)->execute();
-        printMenu();            
-        }
+        cli->m_commands.at(choise - 1)->execute();
+        (cli->getDio)->printMenu();            
     }
 }
 
@@ -82,10 +86,11 @@ void TcpServer::handleClient() {
 * Server main function
 * receives pharsed input from flient, determine type using KNN, sends back to client.
 */
-int main(int argc, char* argv[]){
-    // Checks the validation of PORT number
+int main(int argc, char* argv[]) {
+
+    //Checks the validation of PORT number
     string portTest = argv[PORT];
-    if (!PortIsValid(portTest)) {
+    if (!InputValidator::PortIsValid(portTest)) {
         cout << "invalid port number" << endl;
         exit(1);
     }
@@ -98,6 +103,7 @@ int main(int argc, char* argv[]){
     if (sock < 0) {
         perror("error creating socket");
     }
+
     //Binding
     struct sockaddr_in sin;
     memset(&sin, 0, sizeof(sin));
@@ -117,7 +123,7 @@ int main(int argc, char* argv[]){
         }
 
         //Creates thread to handle new client
-        std::thread t(handleClient);
+        std::thread t(TcpServer::handleClient);
 
         //Close the thread
         t.detach();
