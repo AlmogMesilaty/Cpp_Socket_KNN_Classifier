@@ -1,8 +1,6 @@
 #ifndef AP_EX4_CLI
 #define AP_EX4_CLI
 
-#include <iostream>
-#include <vector>
 #include <regex>
 #include "TypedVector.hpp"
 #include "Command.hpp"
@@ -18,7 +16,8 @@
 class CLI {
 private:
 	DefaultIO* dio; //DefaultIO to read and write
-    std::vector<Command> commands; //array of the 6 different commands
+    Command commands[6];
+    //std::vector<Command> commands; //array of the 6 different commands
     std::vector<TypedVector> trainVectors; //vectors of server train CSV file
     std::vector<vector<float>> testVectors; //vectors of server test CSV file
     int k = 5; //the desired K

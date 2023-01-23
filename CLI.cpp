@@ -6,7 +6,7 @@ CLI::CLI(DefaultIO* dio) {
     //Initialize commands array
     Command com1 = new UploadCommand(dio, this);
     commands.push_back(com1); //Command when typing "1"
-    //this->commands[0] = ; //Command when typing "1"
+    this->commands[0] = new UploadCommand(dio, this);
     this->commands[1] = SettingsCommand(&(this->dio), this); //Command when typing "2"
     this->commands[2] = ClassifyCommand(&(this->dio), this); //Command when typing "3"
     this->commands[3] = DisplayCommand(&(this->dio), this); //Command when typing "4"
