@@ -48,3 +48,37 @@ int InputValidator::inputIsValid(string s) {
 	regex rx(pattern);
 	return regex_match(s, rx);
 }
+
+/*
+// else:
+//finding the required k from the client, or -1 to close the client socket.
+int k = 0;
+int i = 0;
+bool flagMinus = false;
+if (buffer[i] == '-') {
+    flagMinus = true;
+    i++;
+}
+while (buffer[i] != '#') {
+    k = k * 10 + (buffer[i] - '0');
+    i++;
+}
+if (flagMinus) {
+    k = k * (-1);
+}
+if (k == -1) {
+    char bufferToClient[] = "-1";
+    int sent_bytes = send(client_sock, bufferToClient, read_bytes, 0);
+    if (sent_bytes < 0) {
+        perror("error sending to client");
+    }
+    close(client_sock);
+    break;
+}
+if (k <= 0 || k > vectors.size()) {
+    char bufferToClient[] = "invalid input";
+    int sent_bytes = send(client_sock, bufferToClient, read_bytes, 0);
+    if (sent_bytes < 0) {
+        perror("error sending to client");
+    }
+}*/
