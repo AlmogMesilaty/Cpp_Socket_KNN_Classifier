@@ -99,7 +99,6 @@ int main(int argc, char* argv[]) {
     }
 
     //Establish socket
-    const char* ip_address = argv[FILE];
     const int server_port = std::stoi(argv[PORT]);
     //Creates socket
     int sock = socket(AF_INET, SOCK_STREAM, 0);
