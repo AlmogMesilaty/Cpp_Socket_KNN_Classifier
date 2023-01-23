@@ -59,10 +59,11 @@ void CLI::start() {
     serveUser();
 }
 
+/*
 int main() {
     DefaultIO* dio = new StandardIO();
     DataManager* d = new DataManager();
     CLI* cli = new CLI(dio, d);
     cli->start();
     return 0;
-}
+}*/

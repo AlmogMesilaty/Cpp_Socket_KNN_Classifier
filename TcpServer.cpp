@@ -20,8 +20,11 @@ void handleClient(int sock) {
     //Creates default io
     DefaultIO* dio = new StandardIO();
 
+    //Creates data manager
+    DataManager* d = new DataManager();
+
     //Creates new CLI
-    CLI* cli = new CLI(*dio);
+    CLI* cli = new CLI(dio, d);
 
     //Prints the start message
     cli->start();
@@ -77,7 +80,7 @@ void handleClient(int sock) {
         }
 
         //Executes the desired command
-        cli->commands[choice - 1].execute();
+        cli->commands[choice - 1]->execute();
         cli->printMenu();            
     }
 }
