@@ -12,7 +12,7 @@
 class DownloadCommand: public Command {
 public:
     //Constructor
-    DownloadCommand(DefaultIO* dio, CLI* cli) : Command(dio, cli, "5. download results") { }
+    DownloadCommand(DefaultIO* dio, CLI* cli) : Command(dio, cli, "download results") { }
     void execute();
     };
 

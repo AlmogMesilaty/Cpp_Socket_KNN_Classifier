@@ -14,7 +14,7 @@ class DisplayCommand: public Command{
 
 public:
     //Constructor
-    DisplayCommand(DefaultIO* dio, CLI* cli) : Command(dio, cli, "4. display results") { }
+    DisplayCommand(DefaultIO* dio, CLI* cli) : Command(dio, cli, "display results") { }
     //execute
     void execute();
 };

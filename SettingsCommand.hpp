@@ -14,7 +14,7 @@ using namespace std;
 class SettingsCommand : public Command {
 public:
     //Constructor
-    SettingsCommand(DefaultIO* dio, CLI* cli) : Command(dio, cli, "2. algorithm settings") { }
+    SettingsCommand(DefaultIO* dio, CLI* cli) : Command(dio, cli, "algorithm settings") { }
 	//Execute
 	void execute();
 };

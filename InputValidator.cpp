@@ -1,9 +1,8 @@
-#include <iostream>
 #include "InputValidator.hpp"
 /*
 * Checks user input validation
 * input: raw input from user as string.
-* return: false if input its invalid, otherwise true.
+* return: false if input is invalid, otherwise true.
 */
 int InputValidator::isValid(string s) {
 	// Regex expression
@@ -53,7 +52,14 @@ int InputValidator::inputIsValid(string s) {
 * input: K value.
 * output: returns 1 if the k value is valid, 0 if not.
 */
-int InputValidator::validK(string s) {
+bool InputValidator::validK(int k, int max) {
+    if(k>0 && k<max)
+        return true;
+    return false;
+}
+
+/*
+int InputValidator::validK(char[] buffer) {
 	// else:
 	//finding the required k from the client, or -1 to close the client socket.
 	int k = 0;
@@ -87,3 +93,4 @@ int InputValidator::validK(string s) {
 		}
 	}
 }
+*/

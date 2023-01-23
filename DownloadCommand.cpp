@@ -6,7 +6,7 @@
 
 void DownloadCommand::execute() {
 
-    if((*cli).getTestFile().empty() || (*cli).getTrainFile().empty())
+    if((*cli).getTestVectors().empty() || (*cli).getTrainVectors().empty())
         dio->write("please upload data\n");
     else if((*cli).getClassified().empty())
         dio->write("please classify the data\n");

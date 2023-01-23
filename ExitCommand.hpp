@@ -12,7 +12,7 @@
 class ExitCommand: public Command {
 public:
     //Constructor
-    ExitCommand(DefaultIO* dio, CLI* cli) : Command(dio, cli, "6. exit") { }
+    ExitCommand(DefaultIO* dio, CLI* cli) : Command(dio, cli, "exit") { }
     //execute
     void execute();
 };

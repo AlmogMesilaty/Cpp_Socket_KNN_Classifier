@@ -15,23 +15,64 @@ CLI::CLI(DefaultIO dio) {
     this->commands[5] = ExitCommand(&(this->dio), this); //Command when typing "8"
 }
 
+//getters
+DefaultIO CLI::getDio(){
+    return dio;
+}
+
+std::vector<vector<TypedVector>> CLI::getTrainVectors() {
+    return trainVectors;
+}
+
+std::vector<vector<float>> CLI::getTestVectors() {
+    return testVectors;
+}
+
+int CLI::getK(){
+    return k;
+}
+
+int CLI::getMaximumK(){
+   return maxK;
+}
+
+string CLI::getDistance(){
+    return distance;
+}
+
+std::vector<string> CLI::getClassified(){
+    return classified;
+}
+
+//setters
+void CLI::setTrainFile(std::vector<vector<TypedVector>> trainFile){
+    this->trainVectors = trainFile;
+}
+void CLI::setTestFile(std::vector<vector<float>> testFile){
+    this->testVectors = testFile;
+}
+void CLI::setK(int k){
+    this->k = k;
+}
+void CLI::setMaximumK(int maxK){
+    this->maxK = maxK;
+}
+void CLI::setDistance(string distance){
+    this->distance = distance;
+}
+void CLI::setClassified(std::vector<string> classified){
+    this->classified = classified;
+}
+
 //Returns string representation of the menu
 std::string CLI::menuToString() {
     std::string menuStr = "";
     int max = commands.size();
     for(int i = 0; i < max-1; i++) {
-        menuStr += commands[i].getDescription() + "\n";
+        menuStr += std::to_string(i+1) + " " + commands[i].getDescription() + "\n";
     }
-    menuStr += commands[max-1].getDescription();
+    menuStr += "8. "+ commands[max-1].getDescription();
     return menuStr;
-}
-
-bool CLI::inputIsValid(string s){
-    // Regex expression
-    string pattern("^({1,2,3,4,5,8})$");
-    // Getting the regex object
-    regex rx(pattern);
-    return regex_match(s, rx);
 }
 
 //Prints menu
@@ -39,13 +80,12 @@ void CLI::printMenu() {
     dio.write(menuToString());
 }
 
-
 //Serve the user
 void CLI::serveUser() {
     while (true) {
         std::string input = dio.read();
         //Checks if the input is valid
-        if (inputIsValid(input)) {
+        if (InputValidator::inputIsValid(input)) {
             int choice = std::stoi(input);
             //Checks if user wants to exit
             if (choice == 8) {

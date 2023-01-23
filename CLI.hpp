@@ -21,9 +21,9 @@ private:
     std::vector<Command> commands; //array of the 6 different commands
     std::vector<vector<TypedVector>> trainVectors; //vectors of server train CSV file
     std::vector<vector<float>> testVectors; //vectors of server test CSV file
-    int k; //the desired K
+    int k = 5; //the desired K
     int maxK; //maximum K
-    string distance; //the desired distance
+    string distance = "EUC"; //the desired distance
     std::vector<string> classified; //an array of all the classified types of the vectors
 
 public:
@@ -31,8 +31,9 @@ public:
 	CLI(DefaultIO dio); //Constructor
 
     //getters
-    std::vector<vector<TypedVector>> getTrainFile();
-    std::vector<vector<float>> getTestFile();
+    DefaultIO getDio();
+    std::vector<vector<TypedVector>> getTrainVectors();
+    std::vector<vector<float>> getTestVectors();
     int getK();
     int getMaximumK();
     string getDistance();
@@ -44,12 +45,10 @@ public:
     void setK(int k);
     void setMaximumK(int maxK);
     void setDistance(string distance);
-    void setClassified(std::vector<string>);
+    void setClassified(std::vector<string> classified);
 
     std::string menuToString(); //Returns a string representation of the menu
 	void printMenu(); //Writes the manu of the commands
-
-    bool inputIsValid(string s); //Checks if the input is valid
 
     void serveUser(); //serving the user
 

@@ -11,6 +11,7 @@ using namespace std;
 
 class SocketIO: public DefaultIO {
     static const string type = "socket";
+
 public:
     std::string read();
     void write(std::string str);
