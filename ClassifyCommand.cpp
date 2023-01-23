@@ -13,7 +13,7 @@ void ClassifyCommand::execute() {
     }
 
     //Classify the data
-    std::vector<vector<float>> testVectors =c->getTestVectors;
+    std::vector<vector<float>> testVectors = cli->getTestVectors();
     
     //If already classified, dont classify again
     if (!testVectors.empty()) {
@@ -22,7 +22,7 @@ void ClassifyCommand::execute() {
     }
 
     bool invalidDistance = false;
-    string metric = c->getMetric();
+    string metric = cli->getDistance();
 
     //Calculates the distance to the current vector of user.
     for (int i = 0; i < testVectors.size(); i++) {
@@ -39,9 +39,9 @@ void ClassifyCommand::execute() {
         if (invalidDistance) { continue; };
 
         //Calling the KNN to check the type.
-        string s = Knn::findType(train, c->getK());
+        string s = Knn::findType(train, cli->getK());
 
-        std::vector<string> classified = c->getClassified();
+        std::vector<string> classified = cli->getClassified();
 
         classified.push_back(i + " " + s + '\n');
     }

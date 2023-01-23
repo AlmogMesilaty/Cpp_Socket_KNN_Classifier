@@ -4,9 +4,7 @@
 CLI::CLI(DefaultIO* dio) {
 	this->dio = dio;
     //Initialize commands array
-    Command com1 = new UploadCommand(dio, this);
-    commands.push_back(com1); //Command when typing "1"
-    //this->commands[0] = ; //Command when typing "1"
+    this->commands[0] = UploadCommand(&(this->dio), this); //Command when typing "1"
     this->commands[1] = SettingsCommand(&(this->dio), this); //Command when typing "2"
     this->commands[2] = ClassifyCommand(&(this->dio), this); //Command when typing "3"
     this->commands[3] = DisplayCommand(&(this->dio), this); //Command when typing "4"
@@ -19,6 +17,7 @@ DefaultIO* CLI::getDio(){
     return dio;
 }
 
+std::vector<TypedVector> CLI::getTrainVectors() {
 std::vector<TypedVector> CLI::getTrainVectors() {
     return trainVectors;
 }
@@ -44,6 +43,7 @@ std::vector<string> CLI::getClassified(){
 }
 
 //setters
+void CLI::setTrainFile(std::vector<TypedVector> trainFile){
 void CLI::setTrainFile(std::vector<TypedVector> trainFile){
     this->trainVectors = trainFile;
 }

@@ -11,7 +11,8 @@
 using namespace std;
 
 class StandardIO: public DefaultIO {
-private: const std::string type = "standard";
+private:
+    const std::string type = "standard";
 public:
     string read();
     void write(std::string str);

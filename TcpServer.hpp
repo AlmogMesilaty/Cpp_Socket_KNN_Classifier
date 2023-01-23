@@ -16,13 +16,13 @@
 #include "TypedVector.hpp"
 #include "InputValidator.hpp"
 #include "CLI.hpp"
+#include "StandardIO.hpp"
 
 #define FILE 1
 #define PORT 2
 
 class TcpServer {
-public:
-	void handleClient();
+	
 };
 
 
