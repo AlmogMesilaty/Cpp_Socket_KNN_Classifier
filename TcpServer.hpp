@@ -5,8 +5,15 @@
 #define AP_EX4_TCPSERVER_H
 
 #include <thread>
+#include <iostream>
+#include <sys/socket.h>
 #include <stdio.h>
-#include <stdlib.h>
+#include <netinet/in.h>
+#include <unistd.h>
+#include <string.h>
+#include <fstream>
+#include <regex>
+#include "TypedVector.hpp"
 #include "InputValidator.hpp"
 
 class TcpServer {
