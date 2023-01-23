@@ -1,3 +1,4 @@
+#include <iostream>
 #include "InputValidator.hpp"
 /*
 * Checks user input validation

@@ -8,6 +8,8 @@
 #include "TypedVector.hpp"
 #include "Knn.hpp"
 
+using namespace std;
+
 class ClassifyCommand: public Command {
 	//Constructor
 	ClassifyCommand(DefalutIO* dio, CLI* c) : Command("classify data", dio) { }

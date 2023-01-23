@@ -5,23 +5,13 @@
 #define AP_EX4_DEFAULTIO_H
 
 #include <iostream>
-#include <sys/socket.h>
-#include <stdio.h>
-#include <netinet/in.h>
-#include <unistd.h>
-#include <string.h>
-#include <fstream>
-#include <regex>
-#include "TypedVector.hpp"
-#include "VectorDistances.hpp"
-#include "Knn.hpp"
-#include "InputValidator.hpp"
-#include "StringMethods.hpp"
-#define FILE 1
-#define PORT 2
+#include <string>
+#include "DefaultIO.hpp"
 
-class StandardIO : public DefaultIO {
-    static const string type = "standard";
+using namespace std;
+
+class StandardIO: public DefaultIO {
+private: const std::string type = "standard";
 public:
     string read();
     void write(std::string str);

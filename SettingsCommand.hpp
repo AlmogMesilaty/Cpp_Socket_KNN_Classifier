@@ -6,6 +6,8 @@
 
 #include "InputValidator.hpp"
 
+using namespace std;
+
 class SettingsCommand : public Command {
 	//Constructor
 	SettingsCommand(DefalutIO* dio, CLI* c) : Command("algorithm settings", dio) { }

@@ -2,7 +2,7 @@
 //Read
 string StandardIO::read() {
 	string input;
-	getline(cin, in);
+	getline(cin, input);
 	return input;
 }
 //Write
@@ -11,5 +11,5 @@ void StandardIO::write(string s) {
 }
 //IOType
 string StandardIO::IOType() {
-	return StandardIO::IOType;
+	return StandardIO::type;
 }
