@@ -11,6 +11,7 @@
 #include "CLI.hpp"
 
 class UploadCommand : public Command {
+public:
 	//Constructor
 	UploadCommand(DefaultIO* dio, CLI* cli);
 	//Execute

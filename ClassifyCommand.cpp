@@ -5,10 +5,10 @@ ClassifyCommand::ClassifyCommand(DefaultIO *dio, CLI *cli): Command(dio, cli, "3
 void ClassifyCommand::execute() {
 
     //Checks if files were uploaded
-    std::vector<TypedVector> train = c->getTrainVectors();
+    std::vector<TypedVector> train = cli->getTrainVectors();
 
     if (train.empty()) {
-        m_dio->write("\nplease upload train data, press ENTER to return to main menu\n");
+        dio->write("\nplease upload train data, press ENTER to return to main menu\n");
         return;
     }
 
@@ -17,19 +17,19 @@ void ClassifyCommand::execute() {
     
     //If already classified, dont classify again
     if (!testVectors.empty()) {
-        m_dio->write("classifying data complete");
+        dio->write("classifying data complete");
         return;
     }
 
     bool invalidDistance = false;
-    int k = c->getK();
+    string metric = c->getMetric();
 
     //Calculates the distance to the current vector of user.
     for (int i = 0; i < testVectors.size(); i++) {
-        for (int j = 0; j < vectors.size(); j++) {
-            float dis = VectorDistances::distanceByName(k, train[j].getVector(), testVectors[i]);
+        for (int j = 0; j < train.size(); j++) {
+            float dis = VectorDistances::distanceByName(metric, train[j].getVector(), testVectors[i]);
             if (dis < 0.0) {
-                m_dio->write("Invalid input");
+                dio->write("Invalid input");
                 invalidDistance = true;
                 break;
             }
@@ -39,7 +39,7 @@ void ClassifyCommand::execute() {
         if (invalidDistance) { continue; };
 
         //Calling the KNN to check the type.
-        string s = Knn::findType(train, k);
+        string s = Knn::findType(train, c->getK());
 
         std::vector<string> classified = c->getClassified();
 

@@ -7,10 +7,13 @@
 #include "Command.hpp"
 #include "DefaultIO.hpp"
 #include "CLI.hpp"
+#include "Knn.hpp"
+#include "VectorDistances.hpp"
 
 using namespace std;
 
 class ClassifyCommand: public Command {
+public:
     //Constructor
     ClassifyCommand(DefaultIO* dio, CLI* cli);
 	//Execute

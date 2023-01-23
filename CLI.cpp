@@ -6,13 +6,13 @@ CLI::CLI(DefaultIO dio) {
 
     //Initialize commands array
     CLI* p = this;
-    Command u = new UploadCommand(&(this->dio), p);
-    this->commands.push_back(u); //Command when typing "1"
-    this->commands[1] = SettingsCommand(&(this->dio), &this); //Command when typing "2"
-    this->commands[2] = ClassifyCommand(&(this->dio), &this); //Command when typing "3"
-    this->commands[3] = DisplayCommand(&(this->dio), &this); //Command when typing "4"
-    this->commands[4] = DownloadCommand(&(this->dio), &this); //Command when typing "5"
-    this->commands[5] = ExitCommand(&(this->dio), &this); //Command when typing "8"
+
+    this->commands[0] = UploadCommand(&(this->dio), this); //Command when typing "1"
+    this->commands[1] = SettingsCommand(&(this->dio), this); //Command when typing "2"
+    this->commands[2] = ClassifyCommand(&(this->dio), this); //Command when typing "3"
+    this->commands[3] = DisplayCommand(&(this->dio), this); //Command when typing "4"
+    this->commands[4] = DownloadCommand(&(this->dio), this); //Command when typing "5"
+    this->commands[5] = ExitCommand(&(this->dio), this); //Command when typing "8"
 }
 
 //Returns string representation of the menu
