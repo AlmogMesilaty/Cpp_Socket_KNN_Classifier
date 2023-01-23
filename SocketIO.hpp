@@ -10,6 +10,8 @@
 using namespace std;
 
 class SocketIO: public DefaultIO {
+    
+private:
     static const string type = "socket";
 
 public:

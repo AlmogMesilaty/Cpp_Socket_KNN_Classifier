@@ -4,20 +4,19 @@
 CLI::CLI(DefaultIO* dio) {
 	this->dio = dio;
     //Initialize commands array
-    this->commands[0] = UploadCommand(&(this->dio), this); //Command when typing "1"
-    this->commands[1] = SettingsCommand(&(this->dio), this); //Command when typing "2"
-    this->commands[2] = ClassifyCommand(&(this->dio), this); //Command when typing "3"
-    this->commands[3] = DisplayCommand(&(this->dio), this); //Command when typing "4"
-    this->commands[4] = DownloadCommand(&(this->dio), this); //Command when typing "5"
-    this->commands[5] = ExitCommand(&(this->dio), this); //Command when typing "8"
+    this->commands[0] = UploadCommand(dio, this); //Command when typing "1"
+    this->commands[1] = SettingsCommand(dio, this); //Command when typing "2"
+    this->commands[2] = ClassifyCommand(dio, this); //Command when typing "3"
+    this->commands[3] = DisplayCommand(dio, this); //Command when typing "4"
+    this->commands[4] = DownloadCommand(dio, this); //Command when typing "5"
+    this->commands[5] = ExitCommand(dio, this); //Command when typing "8"
 }
 
 //getters
 DefaultIO* CLI::getDio(){
-    return dio;
+    return this->dio;
 }
 
-std::vector<TypedVector> CLI::getTrainVectors() {
 std::vector<TypedVector> CLI::getTrainVectors() {
     return trainVectors;
 }
@@ -43,7 +42,6 @@ std::vector<string> CLI::getClassified(){
 }
 
 //setters
-void CLI::setTrainFile(std::vector<TypedVector> trainFile){
 void CLI::setTrainFile(std::vector<TypedVector> trainFile){
     this->trainVectors = trainFile;
 }
@@ -105,3 +103,8 @@ void CLI::start() {
     serveUser();
 }
 
+main() {
+    DefaultIO* dio = new StandardIO();
+    CLI* cli = new CLI(dio);
+    cli->start();
+}

@@ -8,7 +8,6 @@
 #include <iostream>
 #include "Command.hpp"
 #include "DefaultIO.hpp"
-#include "CLI.hpp"
 
 class DisplayCommand: public Command{
 
