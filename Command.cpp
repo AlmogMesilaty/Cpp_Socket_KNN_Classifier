@@ -1,17 +1,21 @@
 //
 //
 //
-#include "Command.h"
+#include "Command.hpp"
+//Default constractor
+Command::Command() {}
+
 //Constructor
-Command::Command(std::string description, DefalutIO* dio) {
-    m_description = std::move(description);
-    m_dio = dio;
+Command::Command(std::string description, DefaultIO dio) {
+    this->m_description = std::move(description);
+    this->m_dio = dio;
 }
+
 //Get dio
-DefaultIO* Command::getDio() {
-    return m_dio;
+const DefaultIO Command::getDio() {
+    return this->m_dio;
 }
 //Get description
-std::string& Command::getDescription() {
+const std::string& Command::getDescription() {
     return m_description;
 }
