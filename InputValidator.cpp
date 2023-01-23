@@ -60,7 +60,7 @@ bool InputValidator::validK(int k, int max) {
 /*
 *
 */
-bool validMetric(string s) {
+bool InputValidator::validMetric(string s) {
 	return true;
 }
 

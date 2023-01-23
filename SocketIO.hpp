@@ -1,23 +1,20 @@
 //
 //
 //
-#ifndef AP_EX4_DEFAULTIO_H
-#define AP_EX4_DEFAULTIO_H
+#ifndef AP_EX4_SOCKETIO_H
+#define AP_EX4_SOCKETIO_H
 
 #include <string>
+#include <iostream>
 #include "DefaultIO.hpp"
 
-using namespace std;
-
-class SocketIO//: public DefaultIO {
-{
+class SocketIO : public DefaultIO {
 private:
-    //static const string type = "socket";
-
+    const std::string type = "socket";
 public:
     std::string read();
     void write(std::string str);
-    string IOType();
+    std::string IOType();
 };
 
-#endif //AP_EX4_DEFAULTIO_H
+#endif //AP_EX4_SOCKETIO_H

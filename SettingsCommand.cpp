@@ -31,7 +31,7 @@ void SettingsCommand::execute() {
 	if (!(InputValidator::validK(k, max))) {
 		dio->write("\ninvalid value for K");
 	}
-	else if (!(InputValidator::validMetric(secondParam))) {
+	else if (!InputValidator::validMetric(secondParam)) {
 		dio->write("\ninvalid value for metric");
 	}
 	//Updates the k and metric values
