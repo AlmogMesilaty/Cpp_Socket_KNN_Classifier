@@ -17,22 +17,22 @@
 
 class CLI {
 private:
-	DefaultIO dio; //DefaultIO to read and write
+	DefaultIO* dio; //DefaultIO to read and write
     std::vector<Command> commands; //array of the 6 different commands
-    std::vector<vector<TypedVector>> trainVectors; //vectors of server train CSV file
+    std::vector<TypedVector> trainVectors; //vectors of server train CSV file
     std::vector<vector<float>> testVectors; //vectors of server test CSV file
     int k = 5; //the desired K
     int maxK; //maximum K
-    string distance = "EUC"; //the desired distance
+    string distance = "AUC"; //the desired distance
     std::vector<string> classified; //an array of all the classified types of the vectors
 
 public:
 
-	CLI(DefaultIO dio); //Constructor
+	CLI(DefaultIO* dio); //Constructor
 
     //getters
-    DefaultIO getDio();
-    std::vector<vector<TypedVector>> getTrainVectors();
+    DefaultIO* getDio();
+    std::vector<TypedVector> getTrainVectors();
     std::vector<vector<float>> getTestVectors();
     int getK();
     int getMaximumK();
@@ -40,7 +40,7 @@ public:
     std::vector<string> getClassified();
 
     //setters
-    void setTrainFile(std::vector<vector<TypedVector>> trainFile);
+    void setTrainFile(std::vector<TypedVector> trainFile);
     void setTestFile(std::vector<vector<float>> testFile);
     void setK(int k);
     void setMaximumK(int maxK);

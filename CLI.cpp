@@ -1,13 +1,12 @@
 #include "CLI.hpp"
 
 //Constructor
-CLI::CLI(DefaultIO dio) {
+CLI::CLI(DefaultIO* dio) {
 	this->dio = dio;
-
     //Initialize commands array
-    CLI* p = this;
-
-    this->commands[0] = UploadCommand(&(this->dio), this); //Command when typing "1"
+    Command com1 = new UploadCommand(dio, this);
+    commands.push_back(com1); //Command when typing "1"
+    //this->commands[0] = ; //Command when typing "1"
     this->commands[1] = SettingsCommand(&(this->dio), this); //Command when typing "2"
     this->commands[2] = ClassifyCommand(&(this->dio), this); //Command when typing "3"
     this->commands[3] = DisplayCommand(&(this->dio), this); //Command when typing "4"
@@ -16,11 +15,11 @@ CLI::CLI(DefaultIO dio) {
 }
 
 //getters
-DefaultIO CLI::getDio(){
+DefaultIO* CLI::getDio(){
     return dio;
 }
 
-std::vector<vector<TypedVector>> CLI::getTrainVectors() {
+std::vector<TypedVector> CLI::getTrainVectors() {
     return trainVectors;
 }
 
@@ -45,7 +44,7 @@ std::vector<string> CLI::getClassified(){
 }
 
 //setters
-void CLI::setTrainFile(std::vector<vector<TypedVector>> trainFile){
+void CLI::setTrainFile(std::vector<TypedVector> trainFile){
     this->trainVectors = trainFile;
 }
 void CLI::setTestFile(std::vector<vector<float>> testFile){
@@ -77,13 +76,13 @@ std::string CLI::menuToString() {
 
 //Prints menu
 void CLI::printMenu() {
-    dio.write(menuToString());
+    dio->write(menuToString());
 }
 
 //Serve the user
 void CLI::serveUser() {
     while (true) {
-        std::string input = dio.read();
+        std::string input = dio->read();
         //Checks if the input is valid
         if (InputValidator::inputIsValid(input)) {
             int choice = std::stoi(input);
@@ -95,14 +94,14 @@ void CLI::serveUser() {
             printMenu();
         }
         else {
-            dio.write("Please Enter a valid choice\n");
+            dio->write("Please Enter a valid choice\n");
         }
     }
 }
 
 //Prints the start message and the menu
 void CLI::start() {
-    dio.write("Welcome to the KNN Classifier Server. Please choose an option:\n" + menuToString());
+    dio->write("Welcome to the KNN Classifier Server. Please choose an option:\n" + menuToString());
     serveUser();
 }
 
