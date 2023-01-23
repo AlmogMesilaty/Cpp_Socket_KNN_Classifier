@@ -4,4 +4,11 @@
 
 #include "ExitCommand.hpp"
 
-ExitCommand::ExitCommand() {}
+void ExitCommand::execute() {
+    //standard
+    exit(1);
+
+    //Socket
+
+
+}

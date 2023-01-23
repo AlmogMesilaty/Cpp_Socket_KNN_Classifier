@@ -1,5 +1,7 @@
 #include "ClassifyCommand.hpp"
 
+ClassifyCommand::ClassifyCommand(DefaultIO *dio, CLI *cli): Command(dio, cli, "3. classify data") {}
+
 void ClassifyCommand::execute() {
 
     //Checks if files were uploaded

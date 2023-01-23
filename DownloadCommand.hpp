@@ -6,11 +6,15 @@
 #define AP_EX4_DOWNLOADCOMMAND_H
 
 #include "Command.hpp"
+#include "DefaultIO.hpp"
+#include "CLI.hpp"
 
 class DownloadCommand: public Command {
 public:
-    DownloadCommand();
-};
+    //Constructor
+    DownloadCommand(DefaultIO* dio, CLI* cli) : Command(dio, cli, "5. download results") { }
+    void execute();
+    };
 
 
 #endif //AP_EX4_DOWNLOADCOMMAND_H

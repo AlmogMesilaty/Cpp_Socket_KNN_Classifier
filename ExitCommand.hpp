@@ -6,10 +6,15 @@
 #define AP_EX4_EXITCOMMAND_H
 
 #include "Command.hpp"
+#include "DefaultIO.hpp"
+#include "CLI.hpp"
 
 class ExitCommand: public Command {
 public:
-    ExitCommand(); //Default constractor
+    //Constructor
+    ExitCommand(DefaultIO* dio, CLI* cli) : Command(dio, cli, "6. exit") { }
+    //execute
+    void execute();
 };
 
 

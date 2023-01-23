@@ -4,15 +4,15 @@
 #ifndef AP_EX4_CLASSIFYCOMMAND_H
 #define AP_EX4_CLASSIFYCOMMAND_H
 
-#include <vector>
-#include "TypedVector.hpp"
-#include "Knn.hpp"
+#include "Command.hpp"
+#include "DefaultIO.hpp"
+#include "CLI.hpp"
 
 using namespace std;
 
 class ClassifyCommand: public Command {
-	//Constructor
-	ClassifyCommand(DefalutIO* dio, CLI* c) : Command("classify data", dio, c) { }
+    //Constructor
+    ClassifyCommand(DefaultIO* dio, CLI* cli);
 	//Execute
 	void execute();
 };
