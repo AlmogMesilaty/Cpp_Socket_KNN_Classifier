@@ -1,6 +1,6 @@
 #include "SocketIO.hpp"
 //Read
-string SocketIO::read{
+string SocketIO::read() {
 	char buffer[] = {0};
 	
 }

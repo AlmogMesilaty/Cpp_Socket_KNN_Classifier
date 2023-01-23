@@ -7,7 +7,7 @@
 using namespace std;
 
 class Settings : public Command {
-
+	void execute();
 };
 
 
