@@ -8,7 +8,6 @@
 #include "Writer.hpp"
 #include "Command.hpp"
 #include "DefaultIO.hpp"
-#include "CLI.hpp"
 
 class UploadCommand : public Command {
 public:
