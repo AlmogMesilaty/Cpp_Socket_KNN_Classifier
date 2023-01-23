@@ -24,11 +24,11 @@ int main(int argc, char* argv[]) {
 	// Checks the validation of PORT number and IP address
     string portTest = argv[PORT];
 	string ipTest = argv[IP];
-    if (!PortIsValid(portTest)) {
+    if (!InputValidator::PortIsValid(portTest)) {
         cout << "invalid port number" << endl;
         exit(1);
     }
-	if (!IPIsValid(ipTest)) {
+	if (!InputValidator::IPIsValid(ipTest)) {
         cout << "invalid up address" << endl;
         exit(1);
 	}
@@ -65,13 +65,13 @@ int main(int argc, char* argv[]) {
 			endFlag = 1;
 		}
 		//Input is not valid
-		else if (!(isValid(userInput))) {
+		else if (!(InputValidator::isValid(userInput))) {
 			cout << "invalid input" << endl;
 			continue;
 		} 
 		//Valid input that is not -1
 		else {
-			userInput = insertDelimiter(userInput);
+			userInput = StringMethods::insertDelimiter(userInput);
 		}
 		//Saves string length
 		int length = userInput.length();
