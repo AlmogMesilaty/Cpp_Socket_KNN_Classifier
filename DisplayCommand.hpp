@@ -8,12 +8,13 @@
 #include <iostream>
 #include "Command.hpp"
 #include "DefaultIO.hpp"
+#include "DataManager.hpp"
 
 class DisplayCommand: public Command{
 
 public:
     //Constructor
-    DisplayCommand(DefaultIO* dio, CLI* cli) : Command(dio, cli, "display results") { }
+    DisplayCommand(DefaultIO* dio, DataManager* d) : Command(dio, d, "display results") { }
     //execute
     void execute();
 };

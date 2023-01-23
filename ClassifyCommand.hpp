@@ -4,18 +4,16 @@
 #ifndef AP_EX4_CLASSIFYCOMMAND_H
 #define AP_EX4_CLASSIFYCOMMAND_H
 
-#include "Command.hpp"
 #include "DefaultIO.hpp"
-#include "CLI.hpp"
 #include "Knn.hpp"
 #include "VectorDistances.hpp"
-
-using namespace std;
+#include "DataManager.hpp"
+#include "Command.hpp"
 
 class ClassifyCommand: public Command {
 public:
     //Constructor
-    ClassifyCommand(DefaultIO* dio, CLI* cli);
+    ClassifyCommand(DefaultIO* dio, DataManager* d);
 	//Execute
 	void execute();
 };

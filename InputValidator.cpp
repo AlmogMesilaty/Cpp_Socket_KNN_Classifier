@@ -57,6 +57,12 @@ bool InputValidator::validK(int k, int max) {
         return true;
     return false;
 }
+/*
+*
+*/
+bool validMetric(string s) {
+	return true;
+}
 
 /*
 int InputValidator::validK(char[] buffer) {

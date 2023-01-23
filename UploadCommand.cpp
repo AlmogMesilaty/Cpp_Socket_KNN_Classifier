@@ -1,6 +1,6 @@
 #include "UploadCommand.hpp"
 
-UploadCommand::UploadCommand(DefaultIO* dio, CLI* cli) : Command(dio, cli, "upload an unclassified csv data file") {}
+UploadCommand::UploadCommand(DefaultIO* dio, DataManager* d) : Command(dio, d, "upload an unclassified csv data file") {}
 
 void UploadCommand::execute() {
 /*

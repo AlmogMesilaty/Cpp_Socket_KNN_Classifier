@@ -3,9 +3,9 @@
 //
 #include "Command.hpp"
 //Default constractor
-Command::Command(DefaultIO* dio, CLI* cli, string description) {
+Command::Command(DefaultIO* dio, DataManager* d, string description) {
     this->dio = dio;
-    this->cli = cli;
+    this->d = d;
     this->description = description;
 }
 
