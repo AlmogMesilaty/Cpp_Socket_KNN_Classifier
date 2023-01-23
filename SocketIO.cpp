@@ -1,15 +1,16 @@
 #include "SocketIO.hpp"
 //Read
 string SocketIO::read() {
-	char buffer[] = {0};
-	
+	//char buffer[] = {0};
+	return "Hey!";
 }
 //Write
 void SocketIO::write(string s) {
 	//char bufferToClient[] = s;
 	//int sent_bytes = send(client_sock, bufferToClient, read_bytes, 0);
 	//if (sent_bytes < 0) {
-		perror("error sending to client");
+	//	perror("error sending to client");
+	
 	//}
 }
 //IOType

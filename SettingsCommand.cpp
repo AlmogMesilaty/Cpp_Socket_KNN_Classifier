@@ -25,14 +25,13 @@ void SettingsCommand::execute() {
 	std::string secondParam = userInput.substr(delimiterIndex + 1, end - 1);
 	
 	//Checks the validity of the first index
-	//TODO: we need to add max K value to CLI - the minimun number of lines in all files
 	int k = stoi(firstParam);
 	int max = d->getMaximumK();
 
-	if (!InputValidator::validK(k, max)) {
+	if (!(InputValidator::validK(k, max))) {
 		dio->write("\ninvalid value for K");
 	}
-	else if (!InputValidator::validMetric(secondParam)) {
+	else if (!(InputValidator::validMetric(secondParam))) {
 		dio->write("\ninvalid value for metric");
 	}
 	//Updates the k and metric values
