@@ -9,7 +9,6 @@
 #include <arpa/inet.h>
 #include <string.h>
 #include <algorithm>
-#include <regex>
 #include <fstream>
 #include "StringMethods.hpp"
 #include "InputValidator.hpp"
@@ -21,6 +20,7 @@ using namespace std;
 * Client main function
 * receives input from user, sends it to the server, prints the answer.
 */
+
 int main(int argc, char* argv[]) {
     // Checks the validation of PORT number and IP address
     string portTest = argv[PORT];
