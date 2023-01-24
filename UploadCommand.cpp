@@ -15,18 +15,22 @@ void UploadCommand::execute() {
 	//Read the train file path
 	//std::string trainPath = dio->read();
 
+	//Write from socket into temp file
 	Writer* writer = new Writer(this->dio);
+	writer->writeToFIle();
 
 	//Read from local file into vector of TypedVectors
 	Reader* reader = new Reader();
 	//reader->read(trainPath, d->getTrainVectors2());
 	reader->read(TEMP, d->getTrainVectors2());
 	
-	
 	dio->write("Upload complete.\nPlease upload your local test CSV file.\n");
 
 	//Read the test file path
-	std::string testPath = dio->read();
+	//std::string testPath = dio->read();
+
+	//Write from socket into temp file
+	writer->writeToFIle();
 
 	//Read from local file into vector of TypedVectors
 	Reader testReader = Reader();

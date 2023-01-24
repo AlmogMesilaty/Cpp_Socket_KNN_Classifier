@@ -18,7 +18,7 @@ protected:
     DefaultIO* dio;
 public:
     Writer(DefaultIO* dio);
-    void writeToFIle(std::string s, int size);
+    void writeToFIle();
 };
 
 
