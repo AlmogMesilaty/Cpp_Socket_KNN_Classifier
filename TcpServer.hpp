@@ -17,6 +17,7 @@
 #include "InputValidator.hpp"
 #include "CLI.hpp"
 #include "StandardIO.hpp"
+#include "SocketIO.hpp"
 #include "DataManager.hpp"
 
 #define PORT 1

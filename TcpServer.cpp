@@ -121,9 +121,6 @@ int main(int argc, char* argv[]) {
         perror("error binding socket");
     }
 
-    handleClient(sock);
-
-/*
     //Handles clients
     while (true) //Server listens to clients
     {
@@ -139,7 +136,7 @@ int main(int argc, char* argv[]) {
         //Close the thread
         //t.detach();
     }
-*/
+
     //Close client socket
     close(sock);
     return 0;
