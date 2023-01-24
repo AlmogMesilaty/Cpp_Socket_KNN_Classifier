@@ -44,7 +44,8 @@ void ClassifyCommand::execute() {
 
         //Calling the KNN to check the type.
         string s = Knn::findType(train, d->getK());
-
-        classified->push_back(i + " " + s + '\n');
+        string res = std::to_string(i + 1) + " " + s + '\n';
+        cout << res;
+        classified->push_back(res);
     }
 }
