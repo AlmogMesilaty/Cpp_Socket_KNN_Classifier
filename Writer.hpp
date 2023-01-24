@@ -5,7 +5,9 @@
 
 #include <iostream>
 #include <fstream>
+#include <string>
 #include "DefaultIO.hpp"
+#include "SocketIO.hpp"
 
 
 //Command class description
@@ -16,7 +18,7 @@ protected:
     DefaultIO* dio;
 public:
     Writer(DefaultIO* dio);
-    void writeToFIle(char* arr, int size);
+    void writeToFIle(std::string s, int size);
 };
 
 

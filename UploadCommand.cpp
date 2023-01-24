@@ -15,7 +15,7 @@ void UploadCommand::execute() {
 	//Read the train file path
 	//std::string trainPath = dio->read();
 
-	Writer* writer = new Writer(this->d);
+	Writer* writer = new Writer(this->dio);
 
 	//Read from local file into vector of TypedVectors
 	Reader* reader = new Reader();
