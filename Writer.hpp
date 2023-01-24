@@ -4,6 +4,7 @@
 #define AP_EX4_WRITER_H
 
 #include <iostream>
+#include <fstream>
 #include "DefaultIO.hpp"
 
 
@@ -14,7 +15,8 @@ protected:
     std::string data;
     DefaultIO* dio;
 public:
-    void write();
+    Writer(DefaultIO* dio);
+    void writeToFIle(char* arr, int size);
 };
 
 

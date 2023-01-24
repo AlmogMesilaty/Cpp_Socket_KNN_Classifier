@@ -1,4 +1,5 @@
 #include "UploadCommand.hpp"
+#define TEMP "./temp.csv"
 
 UploadCommand::UploadCommand(DefaultIO* dio, DataManager* d) : Command(dio, d, "upload an unclassified csv data file") {}
 
@@ -12,11 +13,14 @@ void UploadCommand::execute() {
 	dio->write("Please upload your local train CSV file.\n");
 
 	//Read the train file path
-	std::string trainPath = dio->read();
+	//std::string trainPath = dio->read();
+
+	Writer* writer = new Writer(this->d);
 
 	//Read from local file into vector of TypedVectors
-		Reader* reader = new Reader();
-		reader->read(trainPath, d->getTrainVectors2());
+	Reader* reader = new Reader();
+	//reader->read(trainPath, d->getTrainVectors2());
+	reader->read(TEMP, d->getTrainVectors2());
 	
 	
 	dio->write("Upload complete.\nPlease upload your local test CSV file.\n");
@@ -26,7 +30,8 @@ void UploadCommand::execute() {
 
 	//Read from local file into vector of TypedVectors
 	Reader testReader = Reader();
-	reader->readToFloat(testPath, d->getTestVectors2());
+	//reader->readToFloat(testPath, d->getTestVectors2());
+	reader->read(TEMP, d->getTrainVectors2());
 
 	dio->write("Uploade complete.\n");
 
