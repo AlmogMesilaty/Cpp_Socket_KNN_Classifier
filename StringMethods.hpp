@@ -17,7 +17,6 @@ using namespace std;
 class StringMethods {
 	public:
 		static string insertDelimiter(string s);
-        //static std::vector<float> stringToVector(string s);
 		static TypedVector stringToTypedVector(string s);
 };
 

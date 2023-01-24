@@ -54,7 +54,7 @@ int InputValidator::inputIsValid(string s) {
 */
 bool InputValidator::validK(string s, int max) {
     // Regex expression
-	string pattern("^[d]+$");
+	string pattern("^\\d+$");
 	// Getting the regex object
 	regex rx(pattern);
 	if(regex_match(s, rx)) {
