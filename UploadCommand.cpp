@@ -40,5 +40,5 @@ void UploadCommand::execute() {
 	std::vector<std::shared_ptr<TypedVector>> classifiedVectors;
 	cli->setClassifiedData(classifiedVectors);
 	*/
-	dio->write("HI!");
+	dio->write("you choose UplodCommand");
 }

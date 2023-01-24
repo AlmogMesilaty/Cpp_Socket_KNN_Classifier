@@ -41,7 +41,7 @@ void handleClient(int sock) {
         else if (read_bytes < 0) {
             perror("error receiving information");
         }
-
+/*
         // else:
         //Reciving menu choice from user, or 8 to close the client socket.
         int choice = 0;
@@ -78,7 +78,8 @@ void handleClient(int sock) {
                 perror("error sending to client");
             }
         }
-
+*/      
+        int choice = stoi(dio->read());
         //Executes the desired command
         cli->commands[choice - 1]->execute();
         cli->printMenu();            
@@ -116,6 +117,9 @@ int main(int argc, char* argv[]) {
         perror("error binding socket");
     }
 
+    handleClient(sock);
+
+/*
     //Handles clients
     while (true) //Server listens to clients
     {
@@ -131,7 +135,7 @@ int main(int argc, char* argv[]) {
         //Close the thread
         //t.detach();
     }
-
+*/
     //Close client socket
     close(sock);
     return 0;

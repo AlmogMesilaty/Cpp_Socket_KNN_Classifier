@@ -52,51 +52,34 @@ int InputValidator::inputIsValid(string s) {
 * input: K value.
 * output: returns 1 if the k value is valid, 0 if not.
 */
-bool InputValidator::validK(int k, int max) {
-    if(k>0 && k<max)
-        return true;
+bool InputValidator::validK(string s, int max) {
+    // Regex expression
+	string pattern("^[d]+$");
+	// Getting the regex object
+	regex rx(pattern);
+	if(regex_match(s, rx)) {
+		int k = stoi(s);
+		return (k < max);
+	}
     return false;
 }
 /*
-*
+* Checks if distance that enterd is valid
 */
 bool InputValidator::validMetric(string s) {
-	return true;
+	// Regex expression
+	string pattern("^AUC$|^MAN$|^CHB$|^CAN$|^MIN$");
+	// Getting the regex object
+	regex rx(pattern);
+	return regex_match(s, rx);
 }
-
 /*
-int InputValidator::validK(char[] buffer) {
-	// else:
-	//finding the required k from the client, or -1 to close the client socket.
-	int k = 0;
-	int i = 0;
-	bool flagMinus = false;
-	if (buffer[i] == '-') {
-		flagMinus = true;
-		i++;
-	}
-	while (buffer[i] != '#') {
-		k = k * 10 + (buffer[i] - '0');
-		i++;
-	}
-	if (flagMinus) {
-		k = k * (-1);
-	}
-	if (k == -1) {
-		char bufferToClient[] = "-1";
-		int sent_bytes = send(client_sock, bufferToClient, read_bytes, 0);
-		if (sent_bytes < 0) {
-			perror("error sending to client");
-		}
-		close(client_sock);
-		break;
-	}
-	if (k <= 0 || k > vectors.size()) {
-		char bufferToClient[] = "invalid input";
-		int sent_bytes = send(client_sock, bufferToClient, read_bytes, 0);
-		if (sent_bytes < 0) {
-			perror("error sending to client");
-		}
-	}
-}
+* Checks the validity of settingsCommand input
 */
+bool InputValidator::validSettings(string s) {
+	// Regex expression
+	string pattern("^\\d+ [A-Z]{3}$");
+	// Getting the regex object
+	regex rx(pattern);
+	return regex_match(s, rx);
+}
