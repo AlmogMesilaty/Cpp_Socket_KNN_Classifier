@@ -1,6 +1,6 @@
 #include "ClassifyCommand.hpp"
 
-ClassifyCommand::ClassifyCommand(DefaultIO *dio, DataManager *d): Command(dio, d, "classify data") {}
+ClassifyCommand::ClassifyCommand(DefaultIO *dio, DataManager *d) : Command(dio, d, "classify data") {}
 
 void ClassifyCommand::execute() {
 

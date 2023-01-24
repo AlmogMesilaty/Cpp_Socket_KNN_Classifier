@@ -5,6 +5,8 @@
 #include <iostream>
 #include "TypedVector.hpp"
 #include "VectorDistances.hpp"
+#include "VectorDistances.hpp"
+
 #define DELIMITER '#'
 
 using namespace std;
@@ -15,7 +17,6 @@ using namespace std;
 class StringMethods {
 	public:
 		static string insertDelimiter(string s);
-        std::vector<float> stringToVector(string s);
 		static TypedVector stringToTypedVector(string s);
 };
 

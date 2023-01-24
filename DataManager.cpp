@@ -1,5 +1,13 @@
 #include "DataManager.hpp"
 
+std::vector<TypedVector>* DataManager::getTrainVectors2() {
+    return &trainVectors;
+}
+
+std::vector<vector<float>>* DataManager::getTestVectors2() {
+    return &testVectors;
+}
+
 std::vector<TypedVector> DataManager::getTrainVectors() {
     return trainVectors;
 }

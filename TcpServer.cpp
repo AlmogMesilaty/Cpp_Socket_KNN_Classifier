@@ -20,8 +20,11 @@ void handleClient(int sock) {
     //Creates default io
     DefaultIO* dio = new StandardIO();
 
+    //Creates data manager
+    DataManager* d = new DataManager();
+
     //Creates new CLI
-    CLI* cli = new CLI(*dio);
+    CLI* cli = new CLI(dio, d);
 
     //Prints the start message
     cli->start();
@@ -38,7 +41,7 @@ void handleClient(int sock) {
         else if (read_bytes < 0) {
             perror("error receiving information");
         }
-
+/*
         // else:
         //Reciving menu choice from user, or 8 to close the client socket.
         int choice = 0;
@@ -75,9 +78,10 @@ void handleClient(int sock) {
                 perror("error sending to client");
             }
         }
-
+*/      
+        int choice = stoi(dio->read());
         //Executes the desired command
-        cli->commands[choice - 1].execute();
+        cli->commands[choice - 1]->execute();
         cli->printMenu();            
     }
 }
@@ -90,13 +94,12 @@ int main(int argc, char* argv[]) {
 
     //Checks the validation of PORT number
     string portTest = argv[PORT];
-    if (!InputValidator::PortIsValid(portTest)) {
+    if (!(InputValidator::PortIsValid(portTest))) {
         cout << "invalid port number" << endl;
         exit(1);
     }
 
     //Establish socket
-    const char* ip_address = argv[FILE];
     const int server_port = std::stoi(argv[PORT]);
     //Creates socket
     int sock = socket(AF_INET, SOCK_STREAM, 0);
@@ -114,6 +117,9 @@ int main(int argc, char* argv[]) {
         perror("error binding socket");
     }
 
+    handleClient(sock);
+
+/*
     //Handles clients
     while (true) //Server listens to clients
     {
@@ -129,7 +135,7 @@ int main(int argc, char* argv[]) {
         //Close the thread
         //t.detach();
     }
-
+*/
     //Close client socket
     close(sock);
     return 0;

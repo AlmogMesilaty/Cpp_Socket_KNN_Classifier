@@ -6,16 +6,16 @@
 
 void DisplayCommand::execute() {
 
-    if((*cli).getTestFile().empty() || (*cli).getTrainFile().empty())
+    if(d->getTestVectors().empty() || d->getTrainVectors().empty())
         dio->write("please upload data\n");
-    else if((*cli).getClassified().empty())
+    else if(d->getClassified().empty())
         dio->write("please classify the data\n");
     else
     {
         string result = "";
-        int max = (*cli).getClassified().size();
+        int max = (d->getClassified().size());
         for (int i = 0; i < max; i++) {
-            result+= std::to_string(i+1)+" "+(*cli).getClassified()[i]+"\n";
+            result+= std::to_string(i+1)+" "+d->getClassified()[i]+"\n";
 
         }
         dio->write(result+"Done.\n");

@@ -20,7 +20,7 @@ public:
     //Default Constructor
     Command(DefaultIO* dio, DataManager* d, std::string description);
     //Execute the commansd
-    virtual void execute();
+    virtual void execute()=0;
     //Returns the IO
     const DefaultIO* getDio();
     //Returns the command description

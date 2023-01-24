@@ -16,8 +16,9 @@ public:
 	static int IPIsValid(string s);
 	static int PortIsValid(string s);
     static int inputIsValid(string s);
-    static bool validK(int k, int max);
+    static bool validK(string s, int max);
 	static bool validMetric(string s);
+	static bool validSettings(string s);
 };
 
 

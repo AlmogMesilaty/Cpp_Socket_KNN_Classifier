@@ -1,4 +1,4 @@
-#define DELIMITER '#'
+#define DELIMITER ' '
 
 #include "SettingsCommand.hpp"
 
@@ -6,39 +6,38 @@ SettingsCommand::SettingsCommand(DefaultIO* dio, DataManager* d) : Command(dio, 
 
 //Prints the current dis matric and k value
 void SettingsCommand::execute() {
-	std::string s = d->getK() + "";
-	dio->write("\nThe current KNN parameters are: k = " + s + ", distance metric = " + d->getDistance() + "\n");
+	dio->write("The current KNN parameters are: k = " + std::to_string(d->getK()) + ", distance metric = " + d->getDistance() + "\n");
 	
 	std::string userInput = dio->read();
-	
+
+	//Checks if user enter's enter
+	if (userInput == "") {
+		return;
+	}
+
 	//Finds the first delimiter index
 	int delimiterIndex = userInput.find(DELIMITER);
 	std::string firstParam = userInput.substr(0, delimiterIndex);
-	
-	//Checks if user enter's enter
-	if (firstParam == "\n") {
-		return;
-	}
-	
-	//Finds last delimiter
-	int end = userInput.find_last_of(DELIMITER);
-	std::string secondParam = userInput.substr(delimiterIndex + 1, end - 1);
-	
+
 	//Checks the validity of the first index
-	//TODO: we need to add max K value to CLI - the minimun number of lines in all files
-	int k = stoi(firstParam);
 	int max = d->getMaximumK();
 
-	if (!InputValidator::validK(k, max)) {
-		dio->write("\ninvalid value for K");
+	if (!(InputValidator::validK(firstParam, max))) {
+		dio->write("invalid value for K\n");
 	}
-	else if (!InputValidator::validMetric(secondParam)) {
-		dio->write("\ninvalid value for metric");
+
+	//Finds last delimiter
+	std::string secondParam = userInput.substr(delimiterIndex + 1);
+
+	if (!InputValidator::validMetric(secondParam)) {
+		dio->write("invalid value for metric\n");
 	}
 	//Updates the k and metric values
 	else {
+		int k = stoi(firstParam);
 		d->setK(k);
 		d->setDistance(secondParam);
+		dio->write("The current KNN parameters are: k = " + std::to_string(d->getK()) + ", distance metric = " + d->getDistance() + "\n");
 	}
 	return;
 }

@@ -4,12 +4,12 @@
 CLI::CLI(DefaultIO* dio, DataManager* data) {
 	this->dio = dio;
     //Initialize commands array
-    this->commands[0] = new UploadCommand(dio, data); //Command when typing "1"
-    this->commands[1] = new SettingsCommand(dio, data); //Command when typing "2"
-    this->commands[2] = new ClassifyCommand(dio, data); //Command when typing "3"
-    this->commands[3] = new DisplayCommand(dio, data); //Command when typing "4"
-    this->commands[4] = new DownloadCommand(dio, data); //Command when typing "5"
-    this->commands[5] = new ExitCommand(dio, data); //Command when typing "8"
+    this->commands.push_back(new UploadCommand(dio, data)); //Command when typing "1"
+    this->commands.push_back(new SettingsCommand(dio, data)); //Command when typing "2"
+    this->commands.push_back(new ClassifyCommand(dio, data)); //Command when typing "3"
+    this->commands.push_back(new DisplayCommand(dio, data)); //Command when typing "4"
+    this->commands.push_back(new DownloadCommand(dio, data)); //Command when typing "5"
+    this->commands.push_back(new ExitCommand(dio, data)); //Command when typing "8"
 }
 
 //getters
@@ -24,7 +24,7 @@ std::string CLI::menuToString() {
     for(int i = 0; i < max-1; i++) {
         menuStr += std::to_string(i+1) + " " + commands[i]->getDescription() + "\n";
     }
-    menuStr += "8. "+ commands[max-1]->getDescription();
+    menuStr += "8. "+ commands[max-1]->getDescription() + "\n";
     return menuStr;
 }
 
@@ -59,10 +59,11 @@ void CLI::start() {
     serveUser();
 }
 
+/*
 int main() {
     DefaultIO* dio = new StandardIO();
     DataManager* d = new DataManager();
     CLI* cli = new CLI(dio, d);
     cli->start();
     return 0;
-}
+}*/

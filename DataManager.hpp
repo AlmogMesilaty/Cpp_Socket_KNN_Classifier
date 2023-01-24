@@ -14,7 +14,7 @@ private:
     std::vector<TypedVector> trainVectors; //vectors of server train CSV file
     std::vector<vector<float>> testVectors; //vectors of server test CSV file
     int k = 5; //the desired K
-    int maxK; //maximum K
+    int maxK = 5; //maximum K
     string distance = "AUC"; //the desired distance
     std::vector<string> classified; //an array of all the classified types of the vectors
 
@@ -22,6 +22,8 @@ public:
 
     std::vector<TypedVector> getTrainVectors();
     std::vector<vector<float>> getTestVectors();
+     std::vector<TypedVector>* getTrainVectors2();
+    std::vector<vector<float>>* getTestVectors2();
     int getK();
     int getMaximumK();
     string getDistance();
