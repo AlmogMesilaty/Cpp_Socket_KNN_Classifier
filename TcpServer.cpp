@@ -84,6 +84,7 @@ void handleClient(int sock) {
         cli->commands[choice - 1]->execute();
         cli->printMenu();            
     }
+    close(client_sock);
 }
 
 /*
@@ -137,7 +138,6 @@ int main(int argc, char* argv[]) {
         //t.detach();
     }
 
-    //Close client socket
     close(sock);
     return 0;
 }
