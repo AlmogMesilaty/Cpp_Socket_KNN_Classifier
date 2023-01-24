@@ -1,11 +1,5 @@
 #include "Reader.hpp"
 
-/*
-Reader::Reader(std::string path, DataManager* d) {
-    this->path = path;
-    this->d = d;
-}*/
-
 void Reader::read(std::string path, std::vector<TypedVector>* vectors) {
     string line = "";
     std::ifstream inputFile;
