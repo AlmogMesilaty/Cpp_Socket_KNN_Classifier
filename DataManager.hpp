@@ -22,6 +22,8 @@ public:
 
     std::vector<TypedVector> getTrainVectors();
     std::vector<vector<float>> getTestVectors();
+     std::vector<TypedVector>* getTrainVectors2();
+    std::vector<vector<float>>* getTestVectors2();
     int getK();
     int getMaximumK();
     string getDistance();

@@ -16,7 +16,7 @@ void UploadCommand::execute() {
 
 	//Read from local file into vector of TypedVectors
 		Reader* reader = new Reader();
-		reader->read(trainPath, &(d->getTrainVectors()));
+		reader->read(trainPath, d->getTrainVectors2());
 	
 	
 	dio->write("Upload complete.\nPlease upload your local test CSV file.");
@@ -26,7 +26,7 @@ void UploadCommand::execute() {
 
 	//Read from local file into vector of TypedVectors
 	Reader testReader = Reader();
-	reader->readToFloat(testPath, &(d->getTestVectors()));
+	reader->readToFloat(testPath, d->getTestVectors2());
 
 	dio->write("\nUploade complete.");
 
