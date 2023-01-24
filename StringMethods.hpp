@@ -3,6 +3,7 @@
 //
 #include <string.h>
 #include <iostream>
+#include <algorithm>
 #include "TypedVector.hpp"
 #include "VectorDistances.hpp"
 #include "VectorDistances.hpp"

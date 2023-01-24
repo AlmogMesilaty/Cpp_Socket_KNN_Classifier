@@ -19,7 +19,7 @@ void UploadCommand::execute() {
 		reader->read(trainPath, d->getTrainVectors2());
 	
 	
-	dio->write("Upload complete.\nPlease upload your local test CSV file.");
+	dio->write("Upload complete.\nPlease upload your local test CSV file.\n");
 
 	//Read the test file path
 	std::string testPath = dio->read();
@@ -28,7 +28,7 @@ void UploadCommand::execute() {
 	Reader testReader = Reader();
 	reader->readToFloat(testPath, d->getTestVectors2());
 
-	dio->write("\nUploade complete.");
+	dio->write("Uploade complete.\n");
 
 	//Updates the client train and test data
 	//d->setTrainData(trainVectors);
@@ -38,5 +38,4 @@ void UploadCommand::execute() {
 	std::vector<std::string> classifiedVectors;
 	d->setClassified(classifiedVectors);
 
-	dio->write("you choose UplodCommand");
 }
