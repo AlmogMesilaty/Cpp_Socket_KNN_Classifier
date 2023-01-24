@@ -28,6 +28,7 @@ public:
     int getMaximumK();
     string getDistance();
     std::vector<string> getClassified();
+    std::vector<string>* getClassified2();
 
     //setters
     void setTrainFile(std::vector<TypedVector> trainFile);
