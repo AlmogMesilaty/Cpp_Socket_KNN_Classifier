@@ -32,6 +32,10 @@ std::vector<string> DataManager::getClassified(){
     return classified;
 }
 
+std::vector<string>* DataManager::getClassified2(){
+    return &classified;
+}
+
 //setters
 void DataManager::setTrainFile(std::vector<TypedVector> trainFile){
     this->trainVectors = trainFile;

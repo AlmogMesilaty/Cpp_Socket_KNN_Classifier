@@ -15,7 +15,7 @@ void DisplayCommand::execute() {
         string result = "";
         int max = (d->getClassified().size());
         for (int i = 0; i < max; i++) {
-            result+= std::to_string(i+1)+" "+d->getClassified()[i]+"\n";
+            result+= d->getClassified()[i];
 
         }
         dio->write(result+"Done.\n");

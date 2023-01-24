@@ -31,16 +31,30 @@ string StringMethods::insertDelimiter(string s) {
 
 //Turnes csv line into a typed vector
 TypedVector StringMethods::stringToTypedVector(string s) {
-
 	//Endls carrige return character
-	s.replace(s.begin(), s.end(), '\r', ' ');
+	replace(s.begin(), s.end(), '\r', ' ');
 	//Finds index of last comma
 	int index = s.find_last_of(',');
 	string type = s.substr(index + 1);
 	string attr = s.substr(0, index);
 	//Replace all commas with space
-	s.replace(attr.begin(), attr.end(), ',', ' ');
+	replace(attr.begin(), attr.end(), ',', ' ');
 	vector<float> vec = VectorDistances::stringToVector(attr); // Throw an exception when a problem arise
 	TypedVector tVec(type, vec);
 	return tVec;
+}
+
+//Turnes csv line into a typed vector
+std::vector<float> StringMethods::stringToFloatVector(string s) {
+	//Endls carrige return character
+	//replace(s.begin(), s.end(), '\r', ' ');
+	//Finds index of last comma
+	int index = s.find('\r');
+	//string type = s.substr(index + 1);
+	string attr = s.substr(0, index);
+	//Replace all commas with space
+	replace(attr.begin(), attr.end(), ',', ' ');
+	vector<float> vec = VectorDistances::stringToVector(attr); // Throw an exception when a problem arise
+	//TypedVector tVec(type, vec);
+	return vec;
 }

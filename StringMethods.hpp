@@ -3,6 +3,7 @@
 //
 #include <string.h>
 #include <iostream>
+#include <algorithm>
 #include "TypedVector.hpp"
 #include "VectorDistances.hpp"
 #include "VectorDistances.hpp"
@@ -18,6 +19,7 @@ class StringMethods {
 	public:
 		static string insertDelimiter(string s);
 		static TypedVector stringToTypedVector(string s);
+		static std::vector<float> stringToFloatVector(string s);
 };
 
 
