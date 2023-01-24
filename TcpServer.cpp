@@ -19,7 +19,7 @@ void handleClient(int sock) {
 
     //Creates default io
     //DefaultIO* dio = new StandardIO();
-    DefaultIO* dio = new SocketIO(sock);
+    DefaultIO* dio = new SocketIO(client_sock);
     //Creates data manager
     DataManager* d = new DataManager();
 

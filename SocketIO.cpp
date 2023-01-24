@@ -24,12 +24,13 @@ std::string SocketIO::read() {
 //Write
 void SocketIO::write(std::string s) {
 
-    char bufferToClient[4096];
-    for(int i=0; i < s.size(); i++){
+    char bufferToClient[4096] = "\0";
+    for(int i=0; i < s.size(); i++) {
         bufferToClient[i] = s[i];
     }
-    bufferToClient[s.size() + 1] = '\0';
-    int sent_bytes = send(this->sock, bufferToClient, s.size() + 1, 0);
+    int expected_length = sizeof(bufferToClient);
+    int client_sock = this->sock;
+    int sent_bytes = send(client_sock, bufferToClient, expected_length, 0);
     if (sent_bytes < 0) {
         perror("error sending to client");
     }
