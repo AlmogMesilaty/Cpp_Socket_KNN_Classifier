@@ -12,6 +12,8 @@
 #include <fstream>
 #include "StringMethods.hpp"
 #include "InputValidator.hpp"
+#include "StandardIO.hpp"
+
 // Macros for the parameters places in argv
 #define IP 1
 #define PORT 2
@@ -57,9 +59,34 @@ int main(int argc, char* argv[]) {
 
 
     //Recives input from user
-    string userInput = "";
+    StandardIO* dio = new StandardIO();
+    string userInput = dio->read();
 
     bool flag1A = false, flag1B = false, flag5 = false;
+    
+    //Checks if user enters 1
+        if (userInput == "1")
+            flag1A = true;
+        //Checks if user enters 5
+        if (userInput == "5")
+            flag5 = true;
+        //Valid input that is not 8
+        //Saves string length
+        int length = userInput.length();
+        // declaring character array (+1 for null terminator)
+        char char_array[4096];
+        // copying the contents of the string to char array
+        for (int i = 0; i <= length; i++) {
+            char_array[i] = userInput[i];
+        }
+        char_array[length + 1] = '\0';
+        int data_len = length + 1;
+        int sent_bytes = send(sock, char_array, data_len, 0);
+        //Checks if the server recived the information
+        if (sent_bytes < 0) {
+            cout << "Sent bytes = 0" << endl;
+        }
+
 
     while (true) {
         //Creating buffer to recive the response from the server
@@ -70,17 +97,17 @@ int main(int argc, char* argv[]) {
         if (read_bytes == 0) {
             cout << "connection is closed" << endl;
         }
-            //Checks if the recived information from server is valid
+        //Checks if the recived information from server is valid
         else if (read_bytes < 0) {
             cout << "error" << endl;
         }
 
-            //If client recives '8' from server, close the connection
+        //If client recives '8' from server, close the connection
         else if (buffer[0] == '8') {
             close(sock);
             break;
         }
-            //Prints server answer
+        //Prints server answer
         else {
             cout << buffer << endl;
         }
@@ -135,28 +162,6 @@ int main(int argc, char* argv[]) {
             }
             flag5 = false;
             continue;
-        }
-        //Checks if user enters 1
-        if (userInput == "1")
-            flag1A = true;
-        //Checks if user enters 5
-        if (userInput == "5")
-            flag5 = true;
-        //Valid input that is not 8
-        //Saves string length
-        int length = userInput.length();
-        // declaring character array (+1 for null terminator)
-        char char_array[4096];
-        // copying the contents of the string to char array
-        for (int i = 0; i <= length; i++) {
-            char_array[i] = userInput[i];
-        }
-        char_array[length + 1] = '\0';
-        int data_len = length + 1;
-        int sent_bytes = send(sock, char_array, data_len, 0);
-        //Checks if the server recived the information
-        if (sent_bytes < 0) {
-            cout << "Sent bytes = 0" << endl;
         }
     }
 }
