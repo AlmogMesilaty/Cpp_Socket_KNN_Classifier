@@ -9,6 +9,8 @@ void ExitCommand::execute() {
     exit(1);
 
     //Socket
-
+    /*
+    dio->write("8");
+     */
 
 }

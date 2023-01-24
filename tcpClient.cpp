@@ -105,6 +105,7 @@ int main(int argc, char* argv[]) {
             // Use a while loop together with the getline() function to read the file line by line
             while (getline(MyReadFile, myText)) {
                 // Output the text from the file
+                myText[myText.length() -1] = 'n';
                 allFileText += myText;
             }
             // Close the file
@@ -123,7 +124,7 @@ int main(int argc, char* argv[]) {
             //user has to enter desired path to download the classified file
             getline(cin, desiredPath, '\n');
             try {
-                ofstream MyFile(desiredPath+"Classified.txt");
+                ofstream MyFile(desiredPath+"Classified.csv");
                 // Write to the file
                 MyFile << userInput;
                 // Close the file
@@ -158,6 +159,6 @@ int main(int argc, char* argv[]) {
             cout << "Sent bytes = 0" << endl;
         }
     }
-}
+}*/
 
 
