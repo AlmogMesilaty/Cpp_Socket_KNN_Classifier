@@ -1,8 +1,8 @@
 
 output: server.out client.out
 
-client.out: tcpClient.o VectorDistances.o TypedVector.o Knn.o CLI.o DataManager.o Reader.o Command.o UploadCommand.o SettingsCommand.o ClassifyCommand.o DisplayCommand.o DownloadCommand.o ExitCommand.o StandardIO.o SocketIO.o InputValidator.o StringMethods.o DefaultIO.o
-	g++ tcpClient.o VectorDistances.o TypedVector.o Knn.o CLI.o DataManager.o Reader.o Command.o UploadCommand.o SettingsCommand.o ClassifyCommand.o DisplayCommand.o DownloadCommand.o ExitCommand.o StandardIO.o SocketIO.o InputValidator.o StringMethods.o DefaultIO.o -o client.out
+client.out: tcpClient.o VectorDistances.o TypedVector.o Knn.o CLI.o DataManager.o Writer.o Reader.o Command.o UploadCommand.o SettingsCommand.o ClassifyCommand.o DisplayCommand.o DownloadCommand.o ExitCommand.o StandardIO.o SocketIO.o InputValidator.o StringMethods.o DefaultIO.o
+	g++ tcpClient.o VectorDistances.o TypedVector.o Knn.o CLI.o DataManager.o Writer.o Reader.o Command.o UploadCommand.o SettingsCommand.o ClassifyCommand.o DisplayCommand.o DownloadCommand.o ExitCommand.o StandardIO.o SocketIO.o InputValidator.o StringMethods.o DefaultIO.o -o client.out
 
 server.out: TcpServer.o VectorDistances.o TypedVector.o Knn.o CLI.o DataManager.o Reader.o Command.o UploadCommand.o SettingsCommand.o ClassifyCommand.o DisplayCommand.o DownloadCommand.o ExitCommand.o StandardIO.o SocketIO.o InputValidator.o StringMethods.o DefaultIO.o
 	g++ TcpServer.o VectorDistances.o TypedVector.o Knn.o CLI.o DataManager.o Reader.o Command.o UploadCommand.o SettingsCommand.o ClassifyCommand.o DisplayCommand.o DownloadCommand.o ExitCommand.o StandardIO.o SocketIO.o InputValidator.o StringMethods.o DefaultIO.o -o server.out
@@ -63,6 +63,9 @@ DefaultIO.o: DefaultIO.cpp
 
 Reader.o: Reader.cpp
 	g++ -std=c++11 -g -c Reader.cpp
+
+Writer.o: Writer.cpp
+	g++ -std=c++11 -g -c Writer.cpp
 
 clean:
 	rm -f *.o client.out server.out
