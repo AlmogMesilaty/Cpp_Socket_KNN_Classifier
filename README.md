@@ -26,13 +26,14 @@ Classes:
 
 ```
 make
-./server.out <file> <port>
+./server.out <port>
 ./client.out <ip> <port>
 ```
 
 ### Dependencies
 
 Vector class
+Thread
 Algotithm library
 string class
 regex
