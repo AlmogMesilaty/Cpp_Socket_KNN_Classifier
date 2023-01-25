@@ -190,7 +190,7 @@ int main(int argc, char* argv[]) {
         }
 
         //User enterd 5
-        if(flag5){
+        if (flag5) {
             //string desiredPath = "";
             //user has to enter desired path to download the classified file
             //std::getline(cin, desiredPath, '\n');
