@@ -58,12 +58,3 @@ void CLI::start() {
     dio->write("Welcome to the KNN Classifier Server. Please choose an option:\n" + menuToString());
     serveUser();
 }
-
-/*
-int main() {
-    DefaultIO* dio = new StandardIO();
-    DataManager* d = new DataManager();
-    CLI* cli = new CLI(dio, d);
-    cli->start();
-    return 0;
-}*/

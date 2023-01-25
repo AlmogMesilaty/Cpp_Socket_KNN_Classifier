@@ -10,6 +10,9 @@ server.out: TcpServer.o VectorDistances.o TypedVector.o Knn.o CLI.o DataManager.
 TcpServer.o: TcpServer.cpp
 	g++ -std=c++11 -g -c TcpServer.cpp
 
+tcpClient.o: tcpClient.cpp
+	g++ -std=c++11 -g -c tcpClient.cpp
+
 VectorDistances.o: VectorDistances.cpp
 	g++ -std=c++11 -g -c VectorDistances.cpp
 

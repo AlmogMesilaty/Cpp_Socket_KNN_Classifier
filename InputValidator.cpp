@@ -42,10 +42,11 @@ int InputValidator::PortIsValid(string s) {
 */
 int InputValidator::inputIsValid(string s) {
 	// Regex expression
-	string pattern("^[1-5]|[8]$");
+	string pattern("^[1-5][\\0]*|[8][\\0]*$");
 	// Getting the regex object
 	regex rx(pattern);
 	return regex_match(s, rx);
+	//return true;
 }
 /*
 * validK

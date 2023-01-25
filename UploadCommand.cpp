@@ -37,8 +37,6 @@ void UploadCommand::execute() {
 	//reader->readToFloat(testPath, d->getTestVectors2());
 	reader->read(TEMP, d->getTrainVectors2());
 
-	dio->write("Uploade complete.\n");
-
 	//Updates the client train and test data
 	//d->setTrainData(trainVectors);
 	//cli->setTestData(testVectors);
@@ -47,4 +45,6 @@ void UploadCommand::execute() {
 	std::vector<std::string> classifiedVectors;
 	d->setClassified(classifiedVectors);
 
+	dio->write("Uploade complete.\n");
+	
 }

@@ -30,17 +30,17 @@ void handleClient(int sock) {
     cli->start();
 
     //Server serves specific client
-    char buffer[4096];
-    int expected_data_len = sizeof(buffer);
+    //char buffer[4096] = "";
+    //int expected_data_len = sizeof(buffer);
     while (true) {
         //Reciving data from client
-        int read_bytes = recv(client_sock, buffer, expected_data_len, 0);
-        if (read_bytes == 0) {
-            perror("connection is close");
-        }
-        else if (read_bytes < 0) {
-            perror("error receiving information");
-        }
+        //int read_bytes = recv(client_sock, buffer, expected_data_len, 0);
+        //if (read_bytes == 0) {
+        //    perror("connection is close");
+        //}
+        //else if (read_bytes < 0) {
+        //    perror("error receiving information");
+        //}
 /*
         // else:
         //Reciving menu choice from user, or 8 to close the client socket.

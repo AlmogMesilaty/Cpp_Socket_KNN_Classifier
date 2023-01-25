@@ -12,8 +12,6 @@
 #include <fstream>
 #include "StringMethods.hpp"
 #include "InputValidator.hpp"
-#include "StandardIO.hpp"
-
 // Macros for the parameters places in argv
 #define IP 1
 #define PORT 2
@@ -59,62 +57,42 @@ int main(int argc, char* argv[]) {
 
 
     //Recives input from user
-    StandardIO* dio = new StandardIO();
-    string userInput = dio->read();
+    string userInput = "";
 
-    bool flag1A = false, flag1B = false, flag5 = false;
-    
-    //Checks if user enters 1
-        if (userInput == "1")
-            flag1A = true;
-        //Checks if user enters 5
-        if (userInput == "5")
-            flag5 = true;
-        //Valid input that is not 8
-        //Saves string length
-        int length = userInput.length();
-        // declaring character array (+1 for null terminator)
-        char char_array[4096];
-        // copying the contents of the string to char array
-        for (int i = 0; i <= length; i++) {
-            char_array[i] = userInput[i];
-        }
-        char_array[length + 1] = '\0';
-        int data_len = length + 1;
-        int sent_bytes = send(sock, char_array, data_len, 0);
-        //Checks if the server recived the information
-        if (sent_bytes < 0) {
-            cout << "Sent bytes = 0" << endl;
-        }
-
+    bool flag1A = false, flag1B = false, flag5 = false, flagMenu = false;
 
     while (true) {
         //Creating buffer to recive the response from the server
-        char buffer[4096];
+        char buffer[4096] = "\0";
         int expected_data_len = sizeof(buffer);
         int read_bytes = recv(sock, buffer, expected_data_len, 0);
         //Checks if the connection is on
         if (read_bytes == 0) {
             cout << "connection is closed" << endl;
         }
-        //Checks if the recived information from server is valid
+            //Checks if the recived information from server is valid
         else if (read_bytes < 0) {
             cout << "error" << endl;
         }
 
-        //If client recives '8' from server, close the connection
+            //If client recives '8' from server, close the connection
         else if (buffer[0] == '8') {
             close(sock);
             break;
         }
-        //Prints server answer
+            //Prints server answer
         else {
-            cout << buffer << endl;
+            cout << buffer;
+        }
+        //check if need to print again from server
+        if(flagMenu){
+            flagMenu = false;
+            continue;
         }
 
         //Indicates if user enters 5 or 1
         //Get input from user
-        getline(cin, userInput, '\n');
+        std::getline(cin, userInput, '\n');
         if(flag1A || flag1B) {
             string myText;
             string allFileText = "";
@@ -130,11 +108,12 @@ int main(int argc, char* argv[]) {
             // Read from the text file
             ifstream MyReadFile(userInput);
             // Use a while loop together with the getline() function to read the file line by line
-            while (getline(MyReadFile, myText)) {
+            while (std::getline(MyReadFile, myText)) {
                 // Output the text from the file
-                myText[myText.length() -1] = 'n';
+                myText[myText.length() -1] = '\n';
                 allFileText += myText;
             }
+            allFileText += '#';
             // Close the file
             MyReadFile.close();
             userInput = allFileText;
@@ -143,13 +122,14 @@ int main(int argc, char* argv[]) {
                 flag1B = true;
             } else {
                 flag1B = false;
+                flagMenu = true;
             }
 
         }
         if(flag5){
             string desiredPath = "";
             //user has to enter desired path to download the classified file
-            getline(cin, desiredPath, '\n');
+            std::getline(cin, desiredPath, '\n');
             try {
                 ofstream MyFile(desiredPath+"Classified.csv");
                 // Write to the file
@@ -162,6 +142,28 @@ int main(int argc, char* argv[]) {
             }
             flag5 = false;
             continue;
+        }
+        //Checks if user enters 1
+        if (userInput == "1")
+            flag1A = true;
+        //Checks if user enters 5
+        if (userInput == "5")
+            flag5 = true;
+        //Valid input that is not 8
+        //Saves string length
+        int length = userInput.length();
+        // declaring character array (+1 for null terminator)
+        char char_array[4096] = "";
+        // copying the contents of the string to char array
+        for (int i = 0; i <= length; i++) {
+            char_array[i] = userInput[i];
+        }
+        char_array[length + 1] = '\0';
+        int data_len = length + 1;
+        int sent_bytes = send(sock, char_array, data_len, 0);
+        //Checks if the server recived the information
+        if (sent_bytes < 0) {
+            cout << "Sent bytes = 0" << endl;
         }
     }
 }

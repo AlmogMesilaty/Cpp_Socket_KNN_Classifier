@@ -5,7 +5,7 @@ SocketIO::SocketIO(int sock) {
 }
 //Read
 std::string SocketIO::read() {
-    char buffer[4096];
+    char buffer[4096] = "";
     int expected_data_len = sizeof(buffer);
     int read_bytes = recv(this->sock, buffer, expected_data_len, 0);
     if (read_bytes == 0) {
@@ -24,7 +24,7 @@ std::string SocketIO::read() {
 //Write
 void SocketIO::write(std::string s) {
 
-    char bufferToClient[4096] = "\0";
+    char bufferToClient[4096] = "";
     for(int i=0; i < s.size(); i++) {
         bufferToClient[i] = s[i];
     }
