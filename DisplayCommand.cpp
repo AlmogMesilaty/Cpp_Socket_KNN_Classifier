@@ -21,5 +21,11 @@ void DisplayCommand::execute() {
         dio->write(result+"Done.\n");
     }
 
+    std::string userInput = dio->read();
+
+    //Checks if user enter's enter
+	if (userInput[0] == '!') {
+		return;
+	}
 
 }
