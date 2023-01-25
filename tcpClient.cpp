@@ -73,21 +73,6 @@ int main(int argc, char* argv[]) {
         //Reciveis data from server
         std::string buffer = dio->read();
 
-        //Creating buffer to recive the response from the server
-        /*
-        char buffer[4096] = "\0";
-        int expected_data_len = sizeof(buffer);
-        int read_bytes = recv(sock, buffer, expected_data_len, 0);
-        //Checks if the connection is on
-        if (read_bytes == 0) {
-            cout << "connection is closed" << endl;
-        }
-            //Checks if the recived information from server is valid
-        else if (read_bytes < 0) {
-            cout << "error" << endl;
-        }*/
-
-        //If client recives '8' from server, close the connection
         if (buffer[0] == '8') {
             close(sock);
             break;
@@ -131,28 +116,28 @@ int main(int argc, char* argv[]) {
                 cout << "invalid input\n";
                 flag1A = false;
                 userInput = "invalid input";
-            } else {
-                // Read from the text file
-                MyReadFile.open(userInput);
+            } 
+            // Read from the text file
+            MyReadFile.open(userInput);
 
-                // Use a while loop together with the getline() function to read the file line by line
-                while (std::getline(MyReadFile, myText)) {
-                    // Output the text from the file
-                    myText[myText.length()] = '\n';
-                    allFileText += myText;
-                }
-                allFileText += '#';
+            // Use a while loop together with the getline() function to read the file line by line
+            while (std::getline(MyReadFile, myText)) {
+                // Output the text from the file
+                myText[myText.length()] = '\n';
+                allFileText += myText;
+            }
+            allFileText += '#';
 
-                //cout << "Original size: " << allFileText.size() << endl;
-                //Sends the data in chunks buffer size
-                int packets = ((allFileText.size()) / 4096);
-                for (int i = 0; i < packets; i++) {
-                    std::string packet = allFileText.substr(0, 4095);
-                    dio->write(packet);
-                    allFileText = allFileText.substr(4095);
-                }
+            //cout << "Original size: " << allFileText.size() << endl;
+            //Sends the data in chunks buffer size
+            int packets = ((allFileText.size()) / 4096);
+            for (int i = 0; i < packets; i++) {
+                std::string packet = allFileText.substr(0, 4095);
+                dio->write(packet);
+                allFileText = allFileText.substr(4095);
+            }
 
-                //cout << "Reduced size: " << allFileText.size() << endl;
+            //cout << "Reduced size: " << allFileText.size() << endl;
 
                 // Close the file
                 MyReadFile.close();
@@ -163,7 +148,6 @@ int main(int argc, char* argv[]) {
             } else {
                 flag1B = false;
                 flagMenu = true;
-            }
             }
         }
 
