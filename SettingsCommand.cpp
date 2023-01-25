@@ -18,7 +18,7 @@ void SettingsCommand::execute() {
 	//Finds the first delimiter index
 	int delimiterIndex = userInput.find(DELIMITER);
 	std::string firstParam = userInput.substr(0, delimiterIndex);
-	std::string secondParam = userInput.substr(delimiterIndex + 1, delimiterIndex + 3);
+	std::string secondParam = userInput.substr(delimiterIndex + 1);
 
 	//Checks the validity of the first index
 	int max = d->getMaximumK();
