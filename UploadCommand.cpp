@@ -12,7 +12,7 @@ void UploadCommand::execute() {
 	Writer* writer = new Writer(this->dio);
 	writer->writeToFIle();
 
-	//Check for incalid path
+	//Check for include path
 	std::ifstream in(TEMP);
 	bool empty = ( in.get(), in.eof() );
 	if (!in || !empty)
