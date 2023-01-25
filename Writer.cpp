@@ -11,9 +11,9 @@ void Writer::writeToFIle() {
     if (!out) {
         dio->write("Cannot create file temp");
     }
-    int index = s.find(END);
     while(true) {
         out << s;
+        int index = s.find(END);
         if(index != -1) {
             break;
         }
