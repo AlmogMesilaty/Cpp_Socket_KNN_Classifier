@@ -114,7 +114,6 @@ int main(int argc, char* argv[]) {
             ifstream MyReadFile(userInput);
             if (!MyReadFile) {
                 cout << "invalid input\n";
-                flag1A = false;
                 userInput = "invalid input";
             } 
             // Read from the text file
