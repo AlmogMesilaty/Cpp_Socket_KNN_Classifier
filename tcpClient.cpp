@@ -142,6 +142,9 @@ int main(int argc, char* argv[]) {
             while (std::getline(MyReadFile, myText)) {
                 // Output the text from the file
                 myText[myText.length()] = '\n';
+                if (myText[myText.size() - 1] != '\r') {
+                    myText += '\r';
+                }
                 allFileText += myText;
             }
             allFileText += '#';
@@ -179,6 +182,7 @@ int main(int argc, char* argv[]) {
                 output = dio->read();
                 endFlag = output.find('#');
             }
+            output.erase(endFlag);
             output.erase(endFlag);
             cout << output;
             flag4 = false;

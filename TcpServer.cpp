@@ -134,11 +134,11 @@ int main(int argc, char* argv[]) {
         }
 
         //Creates thread to handle new client
-        //std::thread t(handleClient(sock));
-        handleClient(sock);
+        std::thread t(handleClient, sock);
+        //handleClient(sock);
 
         //Close the thread
-        //t.detach();
+        t.detach();
     }
 
     close(sock);
