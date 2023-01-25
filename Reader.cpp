@@ -15,7 +15,7 @@ void Reader::read(std::string path, std::vector<TypedVector>* vectors) {
         }
         inputFile.close();
     }
-    remove("${workspaceFolder}/temp.csv");
+    //remove("${workspaceFolder}/temp.csv");
 }
 
 void Reader::readToFloat(std::string path, std::vector<vector<float>>* vectors) {
@@ -33,19 +33,5 @@ void Reader::readToFloat(std::string path, std::vector<vector<float>>* vectors) 
         }
         inputFile.close();
     }
-    remove("${workspaceFolder}/temp.csv");
+    //remove("${workspaceFolder}/temp.csv");
 }
-/*
-void Reader::readToFloat(std::string path, std::vector<vector<float>>* vectors) {
-    std::string line = "";
-    std::ifstream inputFile;
-    inputFile.open(path);
-    if (inputFile.is_open()) {
-        //Converts the csv lines into vectors.
-        while (getline(inputFile, line)) {
-            std::vector<float> vec = StringMethods::stringToFloatVector(line);
-            vectors->push_back(vec);
-        }
-        inputFile.close();
-    }
-}*/

@@ -1,5 +1,5 @@
 #include "UploadCommand.hpp"
-#define TEMP "./temp.csv"
+#define TEMP "temp.csv"
 
 UploadCommand::UploadCommand(DefaultIO* dio, DataManager* d) : Command(dio, d, "upload an unclassified csv data file") {}
 
