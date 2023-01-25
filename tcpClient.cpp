@@ -121,7 +121,8 @@ int main(int argc, char* argv[]) {
         }
 
         //User enterd 1
-        if(flag1A || flag1B) {
+        if(flag1A || flag1B) { 
+
             string myText;
             string allFileText = "";
             try {
@@ -140,10 +141,21 @@ int main(int argc, char* argv[]) {
             // Use a while loop together with the getline() function to read the file line by line
             while (std::getline(MyReadFile, myText)) {
                 // Output the text from the file
-                myText[myText.length() -1] = '\n';
+                myText[myText.length()] = '\n';
                 allFileText += myText;
             }
             allFileText += '#';
+
+            cout << "Original size: " << allFileText.size() << endl;
+
+            int packets = ((allFileText.size()) / 4096);
+            for (int i = 0; i < packets; i++) {
+                std::string packet = allFileText.substr(0, 4095);
+                dio->write(packet);
+                allFileText = allFileText.substr(4096);
+            }
+
+            cout << "Reduced size: " << allFileText.size() << endl;
 
             // Close the file
             MyReadFile.close();
