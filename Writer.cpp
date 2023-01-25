@@ -16,7 +16,7 @@ void Writer::writeToFIle() {
         int index = s.find(END);
         if (index != -1) {
             endFlag = 1;
-            s[index] = '\n';
+            s.erase(index);
         }
         out << s;
         if(endFlag) {
