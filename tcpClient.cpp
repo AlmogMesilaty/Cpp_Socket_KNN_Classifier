@@ -183,9 +183,9 @@ int main(int argc, char* argv[]) {
                 endFlag = output.find('#');
             }
             output.erase(endFlag);
-            output.erase(endFlag - 1);
             cout << output;
             flag4 = false;
+            
         }
 
         //User enterd 5
