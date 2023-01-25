@@ -23,6 +23,7 @@ using namespace std;
 */
 
 int main(int argc, char* argv[]) {
+
     // Checks the validation of PORT number and IP address
     string portTest = argv[PORT];
     string ipTest = argv[IP];
@@ -34,12 +35,14 @@ int main(int argc, char* argv[]) {
         cout << "invalid up address" << endl;
         exit(1);
     }
+
     //Create socket with ipv4 in TCP protocol
     int sock = socket(AF_INET, SOCK_STREAM, 0);
     //If socket creation had a problem
     if (sock < 0) {
         perror("error creating socket");
     }
+
     //Create new sockaddr_in struct for the reciving socket
     struct sockaddr_in sin;
     memset(&sin, 0, sizeof(sin));
@@ -54,16 +57,21 @@ int main(int argc, char* argv[]) {
         exit(1);
     }
 
-
-
-
     //Recives input from user
     string userInput = "";
+
+    //Creats new socketIO with sercer socket
     DefaultIO* dio = new SocketIO(sock);
+
+    //Initilize flags for program flow logic
     bool flag1A = false, flag1B = false, flag5 = false, flagMenu = false;
 
+    //Handles user
     while (true) {
+
+        //Reciveis data from server
         std::string buffer = dio->read();
+
         //Creating buffer to recive the response from the server
         /*
         char buffer[4096] = "\0";
@@ -84,24 +92,32 @@ int main(int argc, char* argv[]) {
             break;
         }*/
         
-            //Prints server answer
+        //Prints server answer
         cout << buffer;
         
+        //Checks if another recive is needed
         if(buffer == "invalid input\n" || buffer == "invalid value for K\n" || buffer == "invalid value for metric\n" || 
-            buffer == "classify data complete\n" || buffer == "please upload data\n" || buffer == "please classify the data\n")
+            buffer == "classify data complete\n" || buffer == "please upload data\n" || buffer == "please classify the data\n") {
             continue;
+        }
+
         //check if need to print again from server
         if(flagMenu){
             flagMenu = false;
             continue;
         }
 
-        //Indicates if user enters 5 or 1
+        //Checks if user enters 5 or 1
+
         //Get input from user
         std::getline(cin, userInput, '\n');
+
+        //If the input was \n sends an agreed symbol
         if(userInput.empty()) {
           userInput = '!';
         }
+
+        //User enterd 1
         if(flag1A || flag1B) {
             string myText;
             string allFileText = "";
@@ -116,6 +132,7 @@ int main(int argc, char* argv[]) {
             }
             // Read from the text file
             ifstream MyReadFile(userInput);
+
             // Use a while loop together with the getline() function to read the file line by line
             while (std::getline(MyReadFile, myText)) {
                 // Output the text from the file
@@ -123,6 +140,7 @@ int main(int argc, char* argv[]) {
                 allFileText += myText;
             }
             allFileText += '#';
+
             // Close the file
             MyReadFile.close();
             userInput = allFileText;
@@ -135,6 +153,7 @@ int main(int argc, char* argv[]) {
             }
 
         }
+        //User enterd 5
         if(flag5){
             string desiredPath = "";
             //user has to enter desired path to download the classified file
@@ -152,6 +171,7 @@ int main(int argc, char* argv[]) {
             flag5 = false;
             continue;
         }
+
         //Checks if user enters 1
         if (userInput == "1")
             flag1A = true;
@@ -159,6 +179,8 @@ int main(int argc, char* argv[]) {
         if (userInput == "5")
             flag5 = true;
         //Valid input that is not 8
+        
+        //Send the input to the server
         dio->write(userInput);
         /*
         //Saves string length
