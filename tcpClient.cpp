@@ -98,7 +98,7 @@ int main(int argc, char* argv[]) {
         
         //Checks if another recive is needed
         if(buffer == "invalid input\n" || buffer == "invalid value for K\n" || buffer == "invalid value for metric\n" || 
-            buffer == "classify data complete\n" || buffer == "please upload data\n" || buffer == "please classify the data\n") {
+            buffer == "classifying data complete\n" || buffer == "please upload data\n" || buffer == "please classify the data\n") {
             continue;
         }
 
