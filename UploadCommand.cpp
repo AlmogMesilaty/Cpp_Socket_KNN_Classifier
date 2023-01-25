@@ -12,12 +12,6 @@ void UploadCommand::execute() {
 	Writer* writer = new Writer(this->dio);
 	writer->writeToFIle();
 
-	//Check for include path
-	std::ifstream in(TEMP);
-	bool empty = ( in.get(), in.eof() );
-	if (!in || !empty)
-		return;
-
 	//Read from local file into vector of TypedVectors
 	Reader* reader = new Reader();
 	reader->read(TEMP, d->getTrainVectors2());
@@ -26,11 +20,6 @@ void UploadCommand::execute() {
 
 	//Write from socket into temp file
 	writer->writeToFIle();
-
-	//Chaeck for incalid path
-	empty = ( in.get(), in.eof() );
-	if (!in || !empty)
-		return;
 
 	//Read from local file into vector of floats
 
