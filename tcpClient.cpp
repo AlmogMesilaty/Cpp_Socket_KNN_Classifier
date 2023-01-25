@@ -13,6 +13,7 @@
 #include "StringMethods.hpp"
 #include "InputValidator.hpp"
 #include "SocketIO.hpp"
+
 // Macros for the parameters places in argv
 #define IP 1
 #define PORT 2
@@ -179,7 +180,7 @@ int main(int argc, char* argv[]) {
         if (userInput == "5")
             flag5 = true;
         //Valid input that is not 8
-        
+
         //Send the input to the server
         dio->write(userInput);
         /*
