@@ -93,14 +93,14 @@ void handleClient(int client_sock) {
 int main(int argc, char* argv[]) {
 
     //Checks the validation of PORT number
-    string portTest = argv[PORT];
+    string portTest = "5556";
     if (!(InputValidator::PortIsValid(portTest))) {
         cout << "invalid port number" << endl;
         exit(1);
     }
 
     //Establish socket
-    const int server_port = std::stoi(argv[PORT]);
+    const int server_port = std::stoi(portTest);
     //Creates socket
     int sock = socket(AF_INET, SOCK_STREAM, 0);
     if (sock < 0) {

@@ -43,5 +43,5 @@ void DisplayCommand::execute() {
 	if (userInput[0] == '!') {
 		return;
 	}
-
+    return;
 }

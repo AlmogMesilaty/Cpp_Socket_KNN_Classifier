@@ -13,10 +13,10 @@ void UploadCommand::execute() {
 	writer->writeToFIle();
 
 	ifstream in("temp.csv");
-	if (in.peek() == EOF) {
-		dio->write("Please upload your local test CSV file.\n");
-		return;
-	}
+	//if (in.peek() == EOF) {
+		//dio->write("Please upload your local test CSV file.\n");
+		//return;
+	//}
 
 	//Read from local file into vector of TypedVectors
 	Reader* reader = new Reader();
@@ -27,10 +27,10 @@ void UploadCommand::execute() {
 	//Write from socket into temp file
 	writer->writeToFIle();
 
-	if (in.peek() == EOF) {
-		dio->write("");
-		return;
-	}
+	//if (in.peek() == EOF) {
+		//dio->write("");
+		//return;
+	//}
 
 	//Read from local file into vector of floats
 	reader->readToFloat(TEMP, d->getTestVectors2());
