@@ -5,12 +5,6 @@
 #include "ExitCommand.hpp"
 
 void ExitCommand::execute() {
-    //standard
-    exit(1);
-
     //Socket
-    /*
     dio->write("8");
-     */
-
 }

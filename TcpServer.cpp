@@ -19,7 +19,7 @@ void handleClient(int sock) {
 
     //Creates default io
     DefaultIO* dio = new SocketIO(client_sock);
-    
+
     //Creates data manager
     DataManager* d = new DataManager();
 
@@ -80,6 +80,11 @@ void handleClient(int sock) {
         }
 */      
         int choice = stoi(dio->read());
+        //User enters 8
+        if (choice == 8) {
+            dio->write("8");
+            break;
+        }
         //Executes the desired command
         cli->commands[choice - 1]->execute();
         cli->printMenu();            
