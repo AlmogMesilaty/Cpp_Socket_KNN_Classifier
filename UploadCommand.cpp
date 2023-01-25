@@ -22,7 +22,6 @@ void UploadCommand::execute() {
 	writer->writeToFIle();
 
 	//Read from local file into vector of floats
-
 	reader->readToFloat(TEMP, d->getTestVectors2());
 
 	//Set an empty vector for the classified data
