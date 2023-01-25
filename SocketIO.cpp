@@ -15,7 +15,7 @@ std::string SocketIO::read() {
     }
     std::string serverString = "";
     int i=0;
-    while (buffer[i] != '\0' || i < 4096) {
+    while (buffer[i] != '\0' && i < 4096) {
         serverString += buffer[i];
         i++;
     }

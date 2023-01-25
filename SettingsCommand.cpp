@@ -31,7 +31,7 @@ void SettingsCommand::execute() {
 
 	//Finds last delimiter
 	cout << secondParam << endl;
-	if (InputValidator::validMetric(secondParam)) {
+	if (!(InputValidator::validMetric(secondParam))) {
 		dio->write("invalid value for metric\n");
 		flag = 0;
 	}
