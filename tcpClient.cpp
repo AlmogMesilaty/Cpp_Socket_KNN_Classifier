@@ -59,7 +59,7 @@ int main(int argc, char* argv[]) {
     //Recives input from user
     string userInput = "";
 
-    bool flag1A = false, flag1B = false, flag5 = false, flagMenu = false;
+    bool flag1A = false, flag1B = false, flag3 = false, flag5 = false, flagMenu = false;
 
     while (true) {
         //Creating buffer to recive the response from the server
@@ -129,6 +129,10 @@ int main(int argc, char* argv[]) {
             }
 
         }
+        if(flag3){
+            flag3 = false;
+            flagMenu = true;
+        }
         if(flag5){
             string desiredPath = "";
             //user has to enter desired path to download the classified file
@@ -149,6 +153,9 @@ int main(int argc, char* argv[]) {
         //Checks if user enters 1
         if (userInput == "1")
             flag1A = true;
+        //Checks if user enters 3
+        if (userInput == "3")
+            flag3 = true;
         //Checks if user enters 5
         if (userInput == "5")
             flag5 = true;

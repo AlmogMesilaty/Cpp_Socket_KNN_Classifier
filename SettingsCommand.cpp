@@ -40,7 +40,7 @@ void SettingsCommand::execute() {
 		int k = stoi(firstParam);
 		d->setK(k);
 		d->setDistance(secondParam);
-		dio->write("The current KNN parameters are: k = " + std::to_string(d->getK()) + ", distance metric = " + d->getDistance() + "\n");
+		dio->write("The current KNN parameters are: k = " + std::to_string(d->getK()) + ", distance metric = " + secondParam + "\n");
 	}
 	return;
 }
