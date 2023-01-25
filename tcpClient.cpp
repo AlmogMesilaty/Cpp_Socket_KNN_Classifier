@@ -94,7 +94,9 @@ int main(int argc, char* argv[]) {
         }*/
         
         //Prints server answer
-        cout << buffer;
+        if(!flag5) {
+            cout << buffer;
+        }
         
         //Checks if another recive is needed
         if(buffer == "invalid input\n" || buffer == "invalid value for K\n" || buffer == "invalid value for metric\n" || 
@@ -162,7 +164,7 @@ int main(int argc, char* argv[]) {
             try {
                 ofstream MyFile(desiredPath+"Classified.csv");
                 // Write to the file
-                MyFile << userInput;
+                MyFile << buffer;
                 // Close the file
                 MyFile.close();
             }
