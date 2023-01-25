@@ -182,8 +182,9 @@ int main(int argc, char* argv[]) {
                 endFlag = output.find('#');
             }
             output.erase(endFlag);
-            buffer = output;
+            cout << output;
             flag4 = false;
+            //userInput = "";
             continue;
             
         }

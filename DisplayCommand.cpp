@@ -33,6 +33,8 @@ void DisplayCommand::execute() {
         //cout << "Reduced size: " << result.size() << endl;
 
         dio->write(result+"Done.\n" + "#");
+
+        return;
     }
 
     std::string userInput = dio->read();
