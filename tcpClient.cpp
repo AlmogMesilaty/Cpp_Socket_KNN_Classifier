@@ -93,6 +93,9 @@ int main(int argc, char* argv[]) {
         //Indicates if user enters 5 or 1
         //Get input from user
         std::getline(cin, userInput, '\n');
+        if(userInput.empty()) {
+          userInput = '!';
+        }
         if(flag1A || flag1B) {
             string myText;
             string allFileText = "";

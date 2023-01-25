@@ -72,7 +72,7 @@ bool InputValidator::validMetric(string s) {
 	string pattern("^AUC$|^MAN$|^CHB$|^CAN$|^MIN$");
 	// Getting the regex object
 	regex rx(pattern);
-	return regex_match(s, rx);
+	return regex_search(s, rx);
 }
 /*
 * Checks the validity of settingsCommand input
