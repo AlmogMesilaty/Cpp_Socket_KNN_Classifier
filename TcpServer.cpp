@@ -26,9 +26,10 @@ void handleClient(int sock) {
     //Creates new CLI
     CLI* cli = new CLI(dio, d);
 
-    //Prints the start message
+    //Handles user
     cli->start();
 
+/*
     //Server serves specific client
     //char buffer[4096] = "";
     //int expected_data_len = sizeof(buffer);
@@ -79,7 +80,7 @@ void handleClient(int sock) {
             }
         }
 */      
-        int choice = stoi(dio->read());
+ /*       int choice = stoi(dio->read());
         //User enters 8
         if (choice == 8) {
             dio->write("8");
@@ -88,7 +89,8 @@ void handleClient(int sock) {
         //Executes the desired command
         cli->commands[choice - 1]->execute();
         cli->printMenu();            
-    }
+    }*/
+
     close(client_sock);
 }
 

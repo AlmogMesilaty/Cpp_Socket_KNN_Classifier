@@ -42,6 +42,7 @@ void CLI::serveUser() {
             int choice = std::stoi(input);
             //Checks if user wants to exit
             if (choice == 8) {
+                dio->write("8");
                 break;
             }
             commands[choice - 1]->execute();
