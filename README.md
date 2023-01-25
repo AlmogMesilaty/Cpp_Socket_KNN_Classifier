@@ -2,11 +2,12 @@
 
 Advanced programming 2022-23 course assignments by Ariel Oscar and Almog Mesilaty.
 
-## Ex.3
+## Ex.4
 
 ### Description
 
-Implementing a serever and a client that use the K-nearst-neighbors (KNN) algorithm in c++.
+Implementing a serever and a clients program that use the K-nearst-neighbors (KNN) algorithm in c++.
+The server listens nonstop to new clients, and communicte with each client in this format:
   1. Throught the command line the client sends to the server, through a socket:
       - Accuracy level (K)
       - Vector that have already been classified, using for comparison
