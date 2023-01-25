@@ -123,45 +123,40 @@ int main(int argc, char* argv[]) {
         }
 
         //User enterd 1
-        if(flag1A || flag1B) { 
-
+        if(flag1A || flag1B) {
             string myText;
             string allFileText = "";
-            try {
-                ifstream MyReadFile(userInput);
-            }
-            catch (const ifstream::failure &e) {
+            ifstream MyReadFile(userInput);
+            if (!MyReadFile) {
                 cout << "invalid input\n";
                 flag1A = false;
-                continue;
-                // Block of code to handle errors
-            }
-            // Read from the text file
-            ifstream MyReadFile;
-            MyReadFile.open(userInput);
+                userInput = "invalid input";
+            } else {
+                // Read from the text file
+                MyReadFile.open(userInput);
 
-            // Use a while loop together with the getline() function to read the file line by line
-            while (std::getline(MyReadFile, myText)) {
-                // Output the text from the file
-                myText[myText.length()] = '\n';
-                allFileText += myText;
-            }
-            allFileText += '#';
+                // Use a while loop together with the getline() function to read the file line by line
+                while (std::getline(MyReadFile, myText)) {
+                    // Output the text from the file
+                    myText[myText.length()] = '\n';
+                    allFileText += myText;
+                }
+                allFileText += '#';
 
-            //cout << "Original size: " << allFileText.size() << endl;
-            //Sends the data in chunks buffer size
-            int packets = ((allFileText.size()) / 4096);
-            for (int i = 0; i < packets; i++) {
-                std::string packet = allFileText.substr(0, 4095);
-                dio->write(packet);
-                allFileText = allFileText.substr(4095);
-            }
+                //cout << "Original size: " << allFileText.size() << endl;
+                //Sends the data in chunks buffer size
+                int packets = ((allFileText.size()) / 4096);
+                for (int i = 0; i < packets; i++) {
+                    std::string packet = allFileText.substr(0, 4095);
+                    dio->write(packet);
+                    allFileText = allFileText.substr(4095);
+                }
 
-            //cout << "Reduced size: " << allFileText.size() << endl;
+                //cout << "Reduced size: " << allFileText.size() << endl;
 
-            // Close the file
-            MyReadFile.close();
-            userInput = allFileText;
+                // Close the file
+                MyReadFile.close();
+                userInput = allFileText;
             if (flag1A) {
                 flag1A = false;
                 flag1B = true;
@@ -169,7 +164,7 @@ int main(int argc, char* argv[]) {
                 flag1B = false;
                 flagMenu = true;
             }
-
+            }
         }
 
         //User enterd 4
@@ -192,15 +187,15 @@ int main(int argc, char* argv[]) {
         //User enterd 5
         if(flag5) {
 
-            try {
-                ofstream MyFile(userInput+"Classified.csv");
+            ofstream MyFile(userInput+"Classified.csv");
+            if (!MyFile) {
+                cout << "invalid path\n";
+            }
+            else {
                 // Write to the file
                 MyFile << buffer;
                 // Close the file
                 MyFile.close();
-            }
-            catch (const ofstream::failure &e) {
-                cout << "invalid path\n";
             }
             flag5 = false;
             continue;
