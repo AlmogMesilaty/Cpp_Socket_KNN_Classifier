@@ -85,13 +85,13 @@ int main(int argc, char* argv[]) {
             //Checks if the recived information from server is valid
         else if (read_bytes < 0) {
             cout << "error" << endl;
-        }
+        }*/
 
-            //If client recives '8' from server, close the connection
-        else if (buffer[0] == '8') {
+        //If client recives '8' from server, close the connection
+        if (buffer[0] == '8') {
             close(sock);
             break;
-        }*/
+        }
         
         //Prints server answer
         if(!flag5) {
@@ -181,8 +181,8 @@ int main(int argc, char* argv[]) {
         //Checks if user enters 5
         if (userInput == "5")
             flag5 = true;
-        //Valid input that is not 8
 
+        //Valid input that is not 8
         //Send the input to the server
         dio->write(userInput);
         /*
