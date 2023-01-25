@@ -190,7 +190,7 @@ int main(int argc, char* argv[]) {
         }
 
         //User enterd 5
-        if (flag5) {
+        if(flag5) {
             //string desiredPath = "";
             //user has to enter desired path to download the classified file
             //std::getline(cin, desiredPath, '\n');
@@ -221,21 +221,5 @@ int main(int argc, char* argv[]) {
         //Valid input that is not 8
         //Send the input to the server
         dio->write(userInput);
-        /*
-        //Saves string length
-        int length = userInput.length();
-        // declaring character array (+1 for null terminator)
-        char char_array[4096] = "";
-        // copying the contents of the string to char array
-        for (int i = 0; i <= length; i++) {
-            char_array[i] = userInput[i];
-        }
-        char_array[length + 1] = '\0';
-        int data_len = length + 1;
-        int sent_bytes = send(sock, char_array, data_len, 0);
-        //Checks if the server recived the information
-        if (sent_bytes < 0) {
-            cout << "Sent bytes = 0" << endl;
-        }*/
     }
 }
