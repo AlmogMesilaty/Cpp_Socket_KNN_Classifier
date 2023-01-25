@@ -5,10 +5,6 @@ UploadCommand::UploadCommand(DefaultIO* dio, DataManager* d) : Command(dio, d, "
 
 void UploadCommand::execute() {
 
-	//Creates the test and classified vectors of the specific client
-	std::vector<TypedVector> trainVectors;
-	std::vector<TypedVector> testVectors;
-
 	//Prints massage to the user
 	dio->write("Please upload your local train CSV file.\n");
 
@@ -46,5 +42,5 @@ void UploadCommand::execute() {
 	d->setClassified(classifiedVectors);
 
 	dio->write("Uploade complete.\n");
-	
+
 }
