@@ -10,6 +10,7 @@
 #include <string.h>
 #include <algorithm>
 #include <fstream>
+#include <thread>
 #include "StringMethods.hpp"
 #include "InputValidator.hpp"
 #include "SocketIO.hpp"
@@ -19,6 +20,32 @@
 #define IP 1
 #define PORT 2
 using namespace std;
+
+
+void downloadFile(string str){
+    int mycounter = 0;
+    string pathOfFile = "";
+    string infoOfFile = "";
+    while(str[mycounter] != ' '){
+        pathOfFile += str[mycounter];
+        mycounter++;
+    }
+    mycounter++;
+    for(; mycounter < str.length(); mycounter++){
+        infoOfFile +=str[mycounter];
+    }
+    ofstream MyFile(pathOfFile);
+    if (!MyFile) {
+        cout << "invalid path\n";
+    }
+    else {
+        // Write to the file
+        MyFile << infoOfFile;
+        // Close the file
+        MyFile.close();
+    }
+}
+
 /*
 * Client main function
 * receives input from user, sends it to the server, prints the answer.
@@ -27,8 +54,8 @@ using namespace std;
 int main(int argc, char* argv[]) {
 
     // Checks the validation of PORT number and IP address
-    string portTest = "5556";
-    const char* ipTest = "127.0.0.1";
+    string portTest = argv[PORT];
+    const char* ipTest = argv[IP];
     if (!InputValidator::PortIsValid(portTest)) {
         cout << "invalid port number" << endl;
         exit(1);
@@ -195,19 +222,9 @@ int main(int argc, char* argv[]) {
 
         //User entered 5
         if(flag5){
-            //string desiredPath = "";
-            //user has to enter desired path to download the classified file
-            //std::getline(cin, desiredPath, '\n');
-            try {
-                ofstream MyFile(userInput+"Classified.csv");
-                // Write to the file
-                MyFile << buffer;
-                // Close the file
-                MyFile.close();
-            }
-            catch (const ofstream::failure &e) {
-                cout << "invalid path\n";
-            }
+            string s = userInput+"Classified.csv "+buffer;
+            thread t(downloadFile, s);
+            t.detach();
             flag5 = false;
             continue;
         }

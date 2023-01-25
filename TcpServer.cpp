@@ -93,7 +93,7 @@ void handleClient(int client_sock) {
 int main(int argc, char* argv[]) {
 
     //Checks the validation of PORT number
-    string portTest = "5556";
+    string portTest = argv[PORT];
     if (!(InputValidator::PortIsValid(portTest))) {
         cout << "invalid port number" << endl;
         exit(1);
