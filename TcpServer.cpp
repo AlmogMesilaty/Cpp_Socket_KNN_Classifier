@@ -7,15 +7,7 @@ using namespace std;
 /*
 * Handle client
 */
-void handleClient(int sock) {
-
-    //Preforms connection to client
-    struct sockaddr_in client_sin;
-    unsigned int addr_len = sizeof(client_sin);
-    int client_sock = accept(sock, (struct sockaddr*)&client_sin, &addr_len);
-    if (client_sock < 0) {
-        perror("error accepting client");
-    }
+void handleClient(int client_sock) {
 
     //Creates default io
     DefaultIO* dio = new SocketIO(client_sock);
@@ -125,16 +117,25 @@ int main(int argc, char* argv[]) {
         perror("error binding socket");
     }
 
+    //Listening to clients
+    if (listen(sock, 5 ) < 0 ) {
+        perror("error listening to a socket");
+    }
+
     //Handles clients
     while (true) //Server listens to clients
     {
-        //Listening to clients
-        if (listen(sock, 5 ) < 0 ) {
-            perror("error listening to a socket");
+        
+        //Preforms connection to client
+        struct sockaddr_in client_sin;
+        unsigned int addr_len = sizeof(client_sin);
+        int client_sock = accept(sock, (struct sockaddr*)&client_sin, &addr_len);
+        if (client_sock < 0) {
+            perror("error accepting client");
         }
 
         //Creates thread to handle new client
-        std::thread t(handleClient, sock);
+        std::thread t(handleClient, client_sock);
         //handleClient(sock);
 
         //Close the thread
