@@ -94,7 +94,7 @@ int main(int argc, char* argv[]) {
         }
         
         //Prints server answer
-        if(!flag5) {
+        if(!flag5 && !flag4) {
             cout << buffer;
         }
         
@@ -113,7 +113,9 @@ int main(int argc, char* argv[]) {
         //Checks if user enters 5 or 1
 
         //Get input from user
-        std::getline(cin, userInput, '\n');
+        if (!flag4) {
+            std::getline(cin, userInput, '\n');
+        }
 
         //If the input was \n sends an agreed symbol
         if(userInput.empty()) {
@@ -142,9 +144,6 @@ int main(int argc, char* argv[]) {
             while (std::getline(MyReadFile, myText)) {
                 // Output the text from the file
                 myText[myText.length()] = '\n';
-                if (myText[myText.size() - 1] != '\r') {
-                    myText += '\r';
-                }
                 allFileText += myText;
             }
             allFileText += '#';
@@ -175,7 +174,7 @@ int main(int argc, char* argv[]) {
 
         //User enterd 4
         if(flag4){
-            std:string output = dio->read();
+            std:string output = buffer;
             int endFlag = output.find('#');
             while(endFlag == -1) {
                 cout << output;
@@ -183,8 +182,9 @@ int main(int argc, char* argv[]) {
                 endFlag = output.find('#');
             }
             output.erase(endFlag);
-            cout << output;
+            buffer = output;
             flag4 = false;
+            continue;
             
         }
 
