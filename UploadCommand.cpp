@@ -28,6 +28,9 @@ void UploadCommand::execute() {
 	std::vector<std::string> classifiedVectors;
 	d->setClassified(classifiedVectors);
 
+	//Set new max K value
+	d->setMaximumK(d->getTrainVectors2()->size());
+
 	dio->write("Uploade complete.\n");
 
 }

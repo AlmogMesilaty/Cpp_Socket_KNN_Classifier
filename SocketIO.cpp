@@ -23,17 +23,37 @@ std::string SocketIO::read() {
 }
 //Write
 void SocketIO::write(std::string s) {
+    
+    if (s.size() <= 4096) {
+        char bufferToClient[4096] = "";
+        for(int i = 0; i < s.size(); i++) {
+            bufferToClient[i] = s[i];
+        }
+        int expected_length = sizeof(bufferToClient);
+        int client_sock = this->sock;
+        int sent_bytes = send(client_sock, bufferToClient, expected_length, 0);
+        if (sent_bytes < 0) {
+            perror("error sending to client");
+        }
+    }
 
-    char bufferToClient[4096] = "";
-    for(int i=0; i < s.size(); i++) {
-        bufferToClient[i] = s[i];
+    else {
+        int endFlag = 0;
+        while(!endFlag) {
+            char bufferToClient[4096] = "";
+            for(int i = 0; i < s.size(); i++) {
+                bufferToClient[i] = s[i];
+                //if (s[i] == '#') { endFlag = 1; }
+            }
+            int expected_length = sizeof(bufferToClient);
+            int client_sock = this->sock;
+            int sent_bytes = send(client_sock, bufferToClient, expected_length, 0);
+            if (sent_bytes < 0) {
+                perror("error sending to client");
+            }
+        }
     }
-    int expected_length = sizeof(bufferToClient);
-    int client_sock = this->sock;
-    int sent_bytes = send(client_sock, bufferToClient, expected_length, 0);
-    if (sent_bytes < 0) {
-        perror("error sending to client");
-    }
+    
 }
 //IOType
 std::string SocketIO::IOType() {

@@ -134,7 +134,8 @@ int main(int argc, char* argv[]) {
                 // Block of code to handle errors
             }
             // Read from the text file
-            ifstream MyReadFile(userInput);
+            ifstream MyReadFile;
+            MyReadFile.open(userInput);
 
             // Use a while loop together with the getline() function to read the file line by line
             while (std::getline(MyReadFile, myText)) {
@@ -158,11 +159,11 @@ int main(int argc, char* argv[]) {
         }
         //User enterd 5
         if(flag5){
-            string desiredPath = "";
+            //string desiredPath = "";
             //user has to enter desired path to download the classified file
-            std::getline(cin, desiredPath, '\n');
+            //std::getline(cin, desiredPath, '\n');
             try {
-                ofstream MyFile(desiredPath+"Classified.csv");
+                ofstream MyFile(userInput+"Classified.csv");
                 // Write to the file
                 MyFile << buffer;
                 // Close the file
