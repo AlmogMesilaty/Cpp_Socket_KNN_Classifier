@@ -12,12 +12,11 @@ void UploadCommand::execute() {
 	Writer* writer = new Writer(this->dio);
 	writer->writeToFIle();
 
-	//Chaeck for incalid path
+	//Check for incalid path
 	std::ifstream in(TEMP);
 	bool empty = ( in.get(), in.eof() );
 	if (!in || !empty)
 		return;
-    
 
 	//Read from local file into vector of TypedVectors
 	Reader* reader = new Reader();
