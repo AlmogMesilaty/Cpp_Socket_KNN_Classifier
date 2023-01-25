@@ -84,6 +84,8 @@ int main(int argc, char* argv[]) {
         else {
             cout << buffer;
         }
+        if(buffer == "invalid input" || buffer == "invalid value for K" || buffer == "invalid value for metric" || 
+            buffer == "classify data complete" || buffer == "please upload data" || buffer == "please classify the data")
         //check if need to print again from server
         if(flagMenu){
             flagMenu = false;
