@@ -65,7 +65,7 @@ int main(int argc, char* argv[]) {
     DefaultIO* dio = new SocketIO(sock);
 
     //Initilize flags for program flow logic
-    bool flag1A = false, flag1B = false, flag5 = false, flagMenu = false;
+    bool flag1A = false, flag1B = false,flag4 = false, flag5 = false, flagMenu = false;
 
     //Handles user
     while (true) {
@@ -146,16 +146,16 @@ int main(int argc, char* argv[]) {
             }
             allFileText += '#';
 
-            cout << "Original size: " << allFileText.size() << endl;
-
+            //cout << "Original size: " << allFileText.size() << endl;
+            //Sends the data in chunks buffer size
             int packets = ((allFileText.size()) / 4096);
             for (int i = 0; i < packets; i++) {
                 std::string packet = allFileText.substr(0, 4095);
                 dio->write(packet);
-                allFileText = allFileText.substr(4096);
+                allFileText = allFileText.substr(4095);
             }
 
-            cout << "Reduced size: " << allFileText.size() << endl;
+            //cout << "Reduced size: " << allFileText.size() << endl;
 
             // Close the file
             MyReadFile.close();
@@ -169,6 +169,21 @@ int main(int argc, char* argv[]) {
             }
 
         }
+
+        //User enterd 4
+        if(flag4){
+            std:string output = dio->read();
+            int endFlag = output.find('#');
+            while(endFlag == -1) {
+                cout << output;
+                output = dio->read();
+                endFlag = output.find('#');
+            }
+            output.erase(endFlag);
+            cout << output;
+            flag4 = false;
+        }
+
         //User enterd 5
         if(flag5){
             //string desiredPath = "";
@@ -191,6 +206,9 @@ int main(int argc, char* argv[]) {
         //Checks if user enters 1
         if (userInput == "1")
             flag1A = true;
+        //Checks if user enters 4
+        if (userInput == "4")
+            flag4 = true;
         //Checks if user enters 5
         if (userInput == "5")
             flag5 = true;

@@ -18,7 +18,21 @@ void DisplayCommand::execute() {
             result+= d->getClassified()[i];
 
         }
-        dio->write(result+"Done.\n");
+
+        //cout << "Original size: " << result.size() << endl;
+
+        //Sends the data in chunks buffer size
+        int packets = ((result.size()) / 4096);
+        for (int i = 0; i < packets; i++) {
+            std::string packet = result.substr(0, 4095);
+            dio->write(packet);
+            result = result.substr(4095);
+            dio->write(packet);
+        }
+
+        //cout << "Reduced size: " << result.size() << endl;
+
+        dio->write(result+"Done.\n" + "#");
     }
 
     std::string userInput = dio->read();

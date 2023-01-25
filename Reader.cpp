@@ -9,7 +9,7 @@ void Reader::read(std::string path, std::vector<TypedVector>* vectors) {
     }
     else {
         //Converts the csv lines into vectors.
-        while (getline(inputFile, line)) {
+        while (getline(inputFile, line, '\r')) {
             TypedVector vec = StringMethods::stringToTypedVector(line);
             vectors->push_back(vec);
         }
@@ -27,7 +27,7 @@ void Reader::readToFloat(std::string path, std::vector<vector<float>>* vectors) 
     }
     else {
         //Converts the csv lines into vectors.
-        while (getline(inputFile, line)) {
+        while (getline(inputFile, line, '\r')) {
             std::vector<float> vec = StringMethods::stringToFloatVector(line);
             vectors->push_back(vec);
         }
