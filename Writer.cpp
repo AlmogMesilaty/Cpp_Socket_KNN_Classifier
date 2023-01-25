@@ -11,7 +11,6 @@ void Writer::writeToFIle() {
     if(!out) { dio->write("Cannot create file temp"); }
     int index = s.find(END);
     while(index == -1) {
-        if (!out) { dio->write("Cannot open file temp"); }
         out << s;
         s = this->dio->read();
     }

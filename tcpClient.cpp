@@ -12,6 +12,7 @@
 #include <fstream>
 #include "StringMethods.hpp"
 #include "InputValidator.hpp"
+#include "SocketIO.hpp"
 // Macros for the parameters places in argv
 #define IP 1
 #define PORT 2
@@ -58,11 +59,13 @@ int main(int argc, char* argv[]) {
 
     //Recives input from user
     string userInput = "";
-
-    bool flag1A = false, flag1B = false, flag3 = false, flag5 = false, flagMenu = false;
+    DefaultIO* dio = new SocketIO(sock);
+    bool flag1A = false, flag1B = false, flag5 = false, flagMenu = false;
 
     while (true) {
+        std::string buffer = dio->read();
         //Creating buffer to recive the response from the server
+        /*
         char buffer[4096] = "\0";
         int expected_data_len = sizeof(buffer);
         int read_bytes = recv(sock, buffer, expected_data_len, 0);
@@ -79,13 +82,14 @@ int main(int argc, char* argv[]) {
         else if (buffer[0] == '8') {
             close(sock);
             break;
-        }
+        }*/
+        
             //Prints server answer
-        else {
-            cout << buffer;
-        }
-        if(buffer == "invalid input" || buffer == "invalid value for K" || buffer == "invalid value for metric" || 
-            buffer == "classify data complete" || buffer == "please upload data" || buffer == "please classify the data")
+        cout << buffer;
+        
+        if(buffer == "invalid input\n" || buffer == "invalid value for K\n" || buffer == "invalid value for metric\n" || 
+            buffer == "classify data complete\n" || buffer == "please upload data\n" || buffer == "please classify the data\n")
+            continue;
         //check if need to print again from server
         if(flagMenu){
             flagMenu = false;
@@ -131,10 +135,6 @@ int main(int argc, char* argv[]) {
             }
 
         }
-        if(flag3){
-            flag3 = false;
-            flagMenu = true;
-        }
         if(flag5){
             string desiredPath = "";
             //user has to enter desired path to download the classified file
@@ -155,13 +155,12 @@ int main(int argc, char* argv[]) {
         //Checks if user enters 1
         if (userInput == "1")
             flag1A = true;
-        //Checks if user enters 3
-        if (userInput == "3")
-            flag3 = true;
         //Checks if user enters 5
         if (userInput == "5")
             flag5 = true;
         //Valid input that is not 8
+        dio->write(userInput);
+        /*
         //Saves string length
         int length = userInput.length();
         // declaring character array (+1 for null terminator)
@@ -176,6 +175,6 @@ int main(int argc, char* argv[]) {
         //Checks if the server recived the information
         if (sent_bytes < 0) {
             cout << "Sent bytes = 0" << endl;
-        }
+        }*/
     }
 }

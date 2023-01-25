@@ -23,20 +23,20 @@ void SettingsCommand::execute() {
 	//Checks the validity of the first index
 	int max = d->getMaximumK();
 	int flag = 1;
-	std::string res= "";
+	//std::string res= "";
 
 	if (!(InputValidator::validK(firstParam, max))) {
-		//dio->write("invalid value for K\n");
-		res = "invalid value for K\n";
+		dio->write("invalid value for K\n");
+		//res = "invalid value for K\n";
 		flag = 0;
 	}
 
 	//Finds last delimiter
-	cout << secondParam << endl;
+	//cout << secondParam << endl;
 	if (!(InputValidator::validMetric(secondParam))) {
-		//dio->write("invalid value for metric\n");
-		res += "invalid value for metric\n";
-		dio->write(res);
+		dio->write("invalid value for metric\n");
+		//res += "invalid value for metric\n";
+		//dio->write(res);
 		flag = 0;
 	}
 	//Updates the k and metric values

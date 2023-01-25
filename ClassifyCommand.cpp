@@ -9,7 +9,7 @@ void ClassifyCommand::execute() {
     std::vector<vector<float>> testVectors = d->getTestVectors();
 
     if (train.empty() || testVectors.empty()) {
-        dio->write("\nplease upload train data, press ENTER to return to main menu\n");
+        dio->write("please upload data");
         return;
     }
 
