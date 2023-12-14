@@ -6,7 +6,7 @@ Advanced programming 2022-23 course assignments by Ariel Oscar and Almog Mesilat
 
 ### Description
 
-Implementing a server and a clients program that use the K-nearst-neighbors (KNN) algorithm in c++.
+Implementing a server and a clients program that use the K-nearest-neighbours  (KNN) algorithm in c++.
 The server listens nonstop to new clients, and communicte with each client in this format:
   1. The server sends a menu to the client, with 6 options to choose: 1-5 and 8. After compliting an option the server will send the menu again.
   2. Clicking 1- Upload command: The server asks the client for 2 files: classified file and Unclassified file, each are filled with vectors. The client has to enter      the local path of each file, and will get an "upload complete" message each time.
